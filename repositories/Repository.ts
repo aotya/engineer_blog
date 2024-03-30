@@ -1,0 +1,29 @@
+import axios from "axios";
+
+const repository = axios.create({
+  baseURL: 'http://localhost:8000/graphql',
+  headers:{
+    "Content-Type": "application/json"
+  }
+})
+
+const Repository = (query: string, { variables }: Record<string, any> = {}) => {
+
+  const body = {
+    query,
+    variables
+  }
+  return {
+    getWp(){//Repository(引数).getWp()で関数を返却
+      return repository.post('/',body)
+    }
+  }
+  
+
+
+
+
+
+}
+
+export default Repository;
