@@ -1,0 +1,22 @@
+.linkCardContainer {
+  box-shadow: 1px 2px 7px #94a3b8;
+  padding: 20px 32px;
+  border-radius: 6px;
+}
+
+.linkCardColum {
+  display: flex;
+  gap: 8px;
+}
+
+.linkCardTitle {
+  font-size: 20px;
+  line-height: 1.6;
+  padding-bottom: 8px;
+  text-align: center;
+}
+.linkCardSub {
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: center;
+}

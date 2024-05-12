@@ -1,0 +1,20 @@
+.footerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 20px 40px;
+  gap: 20px;
+}
+.copyText {
+  font-size: 14px;
+  color: #85C7D5;
+  text-align: center;
+}
+
+.linkText {
+  font-size: 18px;
+  color: #85C7D5;
+  text-align: center;
+}

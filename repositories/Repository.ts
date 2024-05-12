@@ -7,23 +7,32 @@ const repository = axios.create({
   }
 })
 
-const Repository = (query: string, { variables }: Record<string, any> = {}) => {
+export const getWpArticlesList = () => {
 
-  const body = {
-    query,
-    variables
-  }
-  return {
-    getWp(){//Repository(引数).getWp()で関数を返却
-      return repository.post('/',body)
-    }
-  }
+
+
+
+
+  
+}
+
+// const Repository = (query: string, { variables }: Record<string, any> = {}) => {
+
+//   const body = {
+//     query,
+//     variables
+//   }
+//   return {
+//     getWp(){//Repository(引数).getWp()で関数を返却
+//       return repository.post('/',body)
+//     }
+//   }
   
 
 
 
 
 
-}
+// }
 
-export default Repository;
+// export default Repository;

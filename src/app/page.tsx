@@ -1,52 +1,18 @@
 // PostServiceをインポート
-import Image from "next/image";
-import { useState } from "react";
 import styles from "./page.module.css";
-import PostService from "../../services/PostService";
+import Top from "../components/page/Top"
 
 
-async function fetchAPI(query = "", { variables }: Record<string, any> = {}) {
-  const headers = { "Content-Type": "application/json" };
-
-  // WPGraphQL Plugin must be enabled
-  const res = await fetch("http://localhost:8000/graphql", {
-    headers,
-    method: "POST",
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  });
-
-  const json = await res.json();
-  if (json.errors) {
-    console.error(json.errors);
-    throw new Error("Failed to fetch API");
-  }
-  return json.data;
-}
-
-export default function Home() {
-  fetchAPI(
-    `
-    query GetPostsEdges {
-      posts {
-        edges {
-          node {
-            id
-            title
-            date
-            content
-          }
-        }
-      }
-    }`
-  ).then((data) => {console.log(JSON.stringify(data))});
+export default async function Home() {
 
 
   return (
     <main className={styles.main}>
-      {/* コンテンツ */}
+      <Top/>
+      {/* <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      {data.data.posts.edges.map((item:any) => (
+        <p>{item.node.title}</p>
+      ))} */}
     </main>
   );
 }

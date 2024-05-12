@@ -1,0 +1,81 @@
+.topTitleBg {
+  background-color: #F7F7F7;
+  width: 100%;
+}
+
+.topTitleLogo {
+  padding-top: 80px;
+  text-align: center;
+
+}
+
+.topTitle {
+  font-size: 40px;
+  font-weight: bold;
+  padding: 0 20px 36px;
+  text-align: center;
+}
+
+.topTitle span {
+  color: #85C7D5;
+}
+
+.topLeadText {
+  font-size: 24px;
+  text-align: center;
+  padding: 0 20px 112px;
+}
+
+.linkCardsContainer {
+  padding: 64px 20px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 36px;
+}
+
+.blogLists {
+  padding: 60px 20px;
+}
+
+.tabItems {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 2px solid #60A2B0;
+  margin-bottom: 60px;
+}
+
+.tabItem {
+  padding: 10px 60px;
+  background-color: #60A2B0;
+  color: #fff;
+  font-size: 20px;
+}
+
+.blogCardsList {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.cardItemImage {
+  object-fit: scale-down;
+}
+
+.cardTag {
+  background-color: #000;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 8px;
+  text-align: center;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.blogCardContainer {
+  box-shadow: 1px 2px 7px #94a3b8;
+  padding: 20px 14px;
+  border-radius: 6px;
+  width: 30%;
+
+}
