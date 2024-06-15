@@ -10,7 +10,7 @@ export default function LinkCardsContainer() {
     <>
       <section className="">
         <div className={`${styles.linkCardsContainer} pcWidth`}>
-          <LinkCard url="/test/"/>
+          <LinkCard url="/cord/1"/>
         </div>
       </section>
     </>

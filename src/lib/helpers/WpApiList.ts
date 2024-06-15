@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import sanitizeContent from "./Sanitize";
 // WPに連携するベースとなるapi
 export async function getWpData(query = "", { variables }: Record<string, any> = {}) {
   const url = process.env.GRAPHQL_ENDPOINT;
@@ -34,6 +34,19 @@ export async function getArticlesList({ variables }: Record<string, any> = {}) {
             title
             date
             content
+            slug
+            categories {
+              nodes {
+                name
+                uri
+              }
+            }
+            featuredImage {
+              node {
+                link
+              }
+            }
+            postId
           }
         }
       }
@@ -43,3 +56,39 @@ export async function getArticlesList({ variables }: Record<string, any> = {}) {
     console.error("Articles fetching failed:", error);
   }
 }
+
+
+// 記事をスラッグで取得し、サニタイズして返す関数
+export async function getArticleBySlug(slug:any,{ variables }: Record<string, any> = {}) {
+  try {
+    const articles = await getWpData(`
+    query GetPostBySlug {
+      postBy(slug: "${slug}") {
+        title
+        content
+        date
+        terms {
+          nodes {
+            ... on Category {
+              id
+              name
+            }
+          }
+        }
+      }
+    }`, { variables: variables });
+    const articlesData = articles?.data?.postBy;
+
+    // コンテンツをサニタイズする
+    if (articlesData && articlesData.content) {
+      articlesData.content = articlesData.content.replace(/\r\n/g, '<br>').replace(/\n/g, '<br>');
+      articlesData.content = sanitizeContent(articlesData.content);
+    }
+
+    return articlesData;
+  } catch (error) {
+    console.error("Articles fetching failed:", error);
+  }
+}
+
+

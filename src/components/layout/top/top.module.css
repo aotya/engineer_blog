@@ -39,7 +39,7 @@
 
 .tabItems {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   border-bottom: 2px solid #60A2B0;
   margin-bottom: 60px;
 }
@@ -55,11 +55,12 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 5%;
 }
 
 .cardItemImage {
   object-fit: scale-down;
+  margin-bottom: 10px;
 }
 
 .cardTag {
@@ -78,4 +79,16 @@
   border-radius: 6px;
   width: 30%;
 
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.cardDate {
+  font-size: 14px;
+  color: #65717B;
 }
