@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="pcWidth">
         <div className={styles.footerContainer}>
         <a className={styles.linkText} href="/">TOP</a>
-          <p className={styles.copyText}>© 2024 Lv1 Start ! Engineer Blog</p>
+          <p className={styles.copyText}>© 2024 Lv1 Start ! Front Engineer Blog</p>
         </div>
       </div>
     </footer>

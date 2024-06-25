@@ -57,6 +57,28 @@ export async function getArticlesList({ variables }: Record<string, any> = {}) {
   }
 }
 
+const preserveTags = (content, tagName) => {
+  const regex = new RegExp(`<${tagName}>([\\s\\S]*?)<\\/${tagName}>`, 'gi');
+  let placeholders = [];
+  let index = 0;
+  content = content.replace(regex, (match, p1) => {
+    placeholders.push(p1);
+    return `<${tagName}-placeholder-${index++}></${tagName}-placeholder>`;
+  });
+  return { content, placeholders };
+};
+
+const restoreTags = (content, tagName, placeholders) => {
+  placeholders.forEach((text, index) => {
+    content = content.replace(
+      new RegExp(`<${tagName}-placeholder-${index}></${tagName}-placeholder>`, 'gi'),
+      `<${tagName}>${text}</${tagName}>`
+    );
+  });
+  return content;
+};
+
+
 
 // 記事をスラッグで取得し、サニタイズして返す関数
 export async function getArticleBySlug(slug:any,{ variables }: Record<string, any> = {}) {
@@ -67,6 +89,11 @@ export async function getArticleBySlug(slug:any,{ variables }: Record<string, an
         title
         content
         date
+        featuredImage {
+          node {
+            link
+          }
+        }
         terms {
           nodes {
             ... on Category {
@@ -79,11 +106,18 @@ export async function getArticleBySlug(slug:any,{ variables }: Record<string, an
     }`, { variables: variables });
     const articlesData = articles?.data?.postBy;
 
-    // コンテンツをサニタイズする
-    if (articlesData && articlesData.content) {
-      articlesData.content = articlesData.content.replace(/\r\n/g, '<br>').replace(/\n/g, '<br>');
-      articlesData.content = sanitizeContent(articlesData.content);
-    }
+// コンテンツをサニタイズする
+if (articlesData && articlesData.content) {
+  let preData = preserveTags(articlesData.content, 'pre');
+  let codeData = preserveTags(preData.content, 'code');
+  
+  let contentWithBreaks = codeData.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+  
+  contentWithBreaks = restoreTags(contentWithBreaks, 'code', codeData.placeholders);
+  contentWithBreaks = restoreTags(contentWithBreaks, 'pre', preData.placeholders);
+  
+  articlesData.content = sanitizeContent(contentWithBreaks);
+}
 
     return articlesData;
   } catch (error) {

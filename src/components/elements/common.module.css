@@ -20,3 +20,28 @@
   line-height: 1.6;
   text-align: center;
 }
+
+.profileContainer {
+  display: flex;
+  padding: 15px;
+  margin:  0 auto 100px;
+  font-size: 14px;
+  gap: 20px;
+  border: 1px solid #60A2B0;
+  border-radius: 6px;
+  max-width: 1200px;
+}
+
+.profileImage {
+  flex-shrink: 0;
+}
+.profileName {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+}
+
+.profileName span {
+  font-size: 12px;
+
+}

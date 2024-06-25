@@ -4,6 +4,8 @@
 
 body {
   box-sizing: border-box;
+  color: #2b2c30;
+  line-height: 1.8;
 }
 img {
   display: inline;
@@ -12,11 +14,11 @@ img {
   background-color: #E3EEEF;
 }
 .strongColor {
-  color: #85C7D5;
+  color: #60A2B0;
 }
 
 .pcWidth {
-  max-width: 1040px;
+  max-width: 1200px;
   margin: auto;
 }
 
@@ -34,9 +36,113 @@ img {
   padding-bottom: 36px;
 }
 .topTitle span {
-  color: #85C7D5;
+  color: #60A2B0;
 }
 
 .topLeadText {
   font-size: 24px;
 }
+/*  */
+/* Wpから取得したデータにcss付与 */
+/*  */
+
+.globalMainBlogWrap h2 {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 4px;
+  border-bottom: 3px solid #E3EEEF;
+  position: relative;
+}
+.globalMainBlogWrap h2::before {
+  content: "";
+  border-bottom: 3px solid #60A2B0;
+  position: absolute;
+  height: 3px;
+  width: 30%;
+  top: 40px;
+}
+.globalMainBlogWrap h3 {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 5px 0 5px 5px;
+  border-left: 3px solid #60A2B0;
+  position: relative;
+}
+.globalMainBlogWrap .marker {
+  font-weight: bold;
+  background-image: linear-gradient(transparent 60%, #f9f6d6 0%);
+  color: #000;
+}
+
+.globalMainBlogWrap strong {
+  font-weight: bold;
+  color: #000;
+}
+
+.globalMainBlogWrap code {
+  border-radius: 5px;
+}
+
+
+
+.mokujiContainer {
+  border: 2px solid #60A2B0;
+  padding: 30px 60px;
+}
+.mokuji {
+  font-size: 24px;
+  font-weight: bold;
+  color: #60A2B0;
+  text-align: center;
+}
+.mokujilist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mokujiItems {
+  font-size:16px;
+  color:#000;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  position:relative;
+}
+.mokujiItems::before {
+  content: "・";
+  color: #60A2B0;
+  font-size:30px;
+  position: absolute;
+  left: -28px;
+  top: -9px;
+}
+
+.pointContainer {
+  border: 2px solid #60A2B0;
+  border-radius: 6px;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.pointLabel {
+  font-size: 12px;
+  background-color: #60A2B0;
+  color: #fff;
+  border-radius: 6px;
+  padding: 5px 10px;
+  position: absolute;
+  top: -14px;
+  left: 5%;
+}
+
+.space {
+  max-width: 1200px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+
+
+  
+
+

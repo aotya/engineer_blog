@@ -17,7 +17,7 @@
 }
 
 .topTitle span {
-  color: #85C7D5;
+  color: #60A2B0;
 }
 
 .topLeadText {
@@ -56,6 +56,7 @@
   justify-content: flex-start;
   flex-wrap: wrap;
   gap: 5%;
+  row-gap: 30px;
 }
 
 .cardItemImage {

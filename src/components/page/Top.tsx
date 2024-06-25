@@ -4,6 +4,7 @@ import TopTitle from "../layout/top/TopTitle";
 import LinkCardsContainer from "../layout/top/LinkCardsContainer";
 import BlogLists from "../layout/top/BlogLists";
 import {getArticlesList} from "../../lib/helpers/WpApiList";
+import Profile from "../elements/Profile";
 
 export default async function Top() {
   const data = await getArticlesList();
@@ -12,7 +13,7 @@ export default async function Top() {
     <TopTitle/>
     <LinkCardsContainer/>
     <BlogLists topData={data}/>
-
+    <div className={`space`}><Profile/></div>
     </>
   )  
 }
