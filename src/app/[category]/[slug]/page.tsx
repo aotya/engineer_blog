@@ -35,13 +35,15 @@ const BlogArticlePage = async ({ params }: { params: { slug: string } }) => {
           <p className={styles.categoryBlock}>HTML</p>
           <p className={styles.blogTitle}>{data.title}</p>
           <p className={styles.blogDate}>{changeDateFormat(data.date)}</p>
-          <Image 
-            src={data.featuredImage.node.link}
-            width={100}
-            height={100}
-            alt="profile_icon"
-            className={styles.thumbnail}
-          />
+          <div>
+            <Image 
+              src={data.featuredImage.node.link}
+              width={600}
+              height={600}
+              alt="profile_icon"
+              className={styles.thumbnail}
+            />
+          </div>
           <div dangerouslySetInnerHTML={{ __html: body.html()}} />
           <Profile />
         </div>

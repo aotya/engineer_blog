@@ -36,6 +36,8 @@
   width: 100%;
   margin: 0 auto;
   height: auto;
+  object-fit: scale-down;
+  height: 400px;
 }
 .sideContentWrap {
   max-width: 310px;

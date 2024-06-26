@@ -41,8 +41,8 @@ const changeDateFormat = (date:string) => {
                   <div>
                     <Image 
                       src={item.node.featuredImage.node.link}
-                      width={320}
-                      height={114}
+                      width={500}
+                      height={500}
                       alt="profile_icon"
                       className={styles.cardItemImage}
                     />
