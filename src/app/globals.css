@@ -59,7 +59,7 @@ img {
   position: absolute;
   height: 3px;
   width: 30%;
-  top: 40px;
+  bottom: -2px;
 }
 .globalMainBlogWrap h3 {
   font-size: 18px;
@@ -82,8 +82,6 @@ img {
 .globalMainBlogWrap code {
   border-radius: 5px;
 }
-
-
 
 .mokujiContainer {
   border: 2px solid #60A2B0;
@@ -139,6 +137,52 @@ img {
   max-width: 1200px;
   padding: 0 20px;
   margin: 0 auto;
+}
+
+@media screen and (max-width: 760px) {
+
+/*  */
+/* Wpから取得したデータにcss付与 */
+/*  */
+
+.globalMainBlogWrap h2 {
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 4px;
+  border-bottom: 3px solid #E3EEEF;
+  position: relative;
+}
+.globalMainBlogWrap h2::before {
+  content: "";
+  border-bottom: 3px solid #60A2B0;
+  position: absolute;
+  height: 3px;
+  width: 30%;
+  bottom: -2px;
+}
+.globalMainBlogWrap h3 {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 5px 0 5px 5px;
+  border-left: 3px solid #60A2B0;
+  position: relative;
+}
+.globalMainBlogWrap .marker {
+  font-weight: bold;
+  background-image: linear-gradient(transparent 60%, #f9f6d6 0%);
+  color: #000;
+}
+
+.globalMainBlogWrap strong {
+  font-weight: bold;
+  color: #000;
+}
+
+.globalMainBlogWrap code {
+  border-radius: 5px;
+}
+
+
 }
 
 

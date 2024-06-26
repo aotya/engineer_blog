@@ -13,6 +13,7 @@ export default function TopTitle() {
         width={114}
         height={114}
         alt="profile_icon"
+        className={styles.topLogo}
         />
       </div>
       <h1 className={styles.topTitle}>Lv1 Start <span>!</span> Front <span>E</span>ngineer <span>B</span>log</h1>

@@ -93,3 +93,109 @@
   font-size: 14px;
   color: #65717B;
 }
+
+@media screen and (max-width: 760px) {
+
+  .topTitleBg {
+    background-color: #F7F7F7;
+    width: 100%;
+  }
+  
+  .topTitleLogo {
+    padding-top: 20px;
+    text-align: center;
+  }
+  .topLogo {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .topTitle {
+    font-size: 23px;
+    font-weight: bold;
+    padding: 0 20px;
+    text-align: center;
+  }
+  
+  .topTitle span {
+    color: #60A2B0;
+  }
+  
+  .topLeadText {
+    font-size: 20px;
+    text-align: center;
+    padding: 0 20px 40px;
+  }
+  
+  .linkCardsContainer {
+    padding: 64px 20px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 36px;
+  }
+  
+  .blogLists {
+    padding: 60px 20px;
+  }
+  
+  .tabItems {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #60A2B0;
+    margin-bottom: 30px;
+  }
+  
+  .tabItem {
+    padding: 10px 60px;
+    background-color: #60A2B0;
+    color: #fff;
+    font-size: 20px;
+  }
+  
+  .blogCardsList {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    row-gap: 30px;
+  }
+  
+  .cardItemImage {
+    object-fit: scale-down;
+    margin-bottom: 10px;
+  }
+  
+  .cardTag {
+    background-color: #000;
+    color: #fff;
+    font-size: 12px;
+    padding: 3px 8px;
+    text-align: center;
+    border-radius: 4px;
+    display: inline-block;
+  }
+  
+  .blogCardContainer {
+    box-shadow: 1px 2px 7px #94a3b8;
+    padding: 20px 14px;
+    border-radius: 6px;
+    width: 100%;
+  
+  }
+  
+  .cardTitle {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .cardDate {
+    font-size: 14px;
+    color: #65717B;
+  }
+  
+
+
+}

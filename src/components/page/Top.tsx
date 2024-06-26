@@ -11,7 +11,7 @@ export default async function Top() {
   return (
     <>
     <TopTitle/>
-    <LinkCardsContainer/>
+    {/* <LinkCardsContainer/> */}
     <BlogLists topData={data}/>
     <div className={`space`}><Profile/></div>
     </>

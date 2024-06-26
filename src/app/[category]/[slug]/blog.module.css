@@ -64,3 +64,46 @@
   font-weight: bold;
 }
 
+@media screen and (max-width: 760px) {
+  .mainBlogWrap {
+    max-width: initial;
+    display: block;
+    margin: 20px auto;
+    justify-content: center;
+    gap: 50px;
+    padding: 0 20px;
+    width: 100%;
+  }
+  .breadcrumb {
+    display: flex;
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .categoryBlock {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: #60A2B0;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  .blogTitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .blogDate {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  .sideContentWrap {
+    max-width: 310px;
+    display: none;
+  }
+
+}
