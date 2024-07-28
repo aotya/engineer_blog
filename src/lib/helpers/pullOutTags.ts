@@ -20,12 +20,12 @@ export const HighlightAutoCord = (body:any) =>{
 }
 
 // 目次処理
-export const renderToc = (body:any) => {
+export const renderToc = (body: any) => {
   const $ = cheerio.load(body);
   const headings = $('h1, h2, h3').toArray();
-  const toc = headings.map((data,index) => ({
-    text: data.children[0].data,
-    id: `toc${index+1}`
+  const toc = headings.map((item, index) => ({
+    text: $(item).text(),
+    id: `toc${index + 1}`
   }));
   return toc;
 };

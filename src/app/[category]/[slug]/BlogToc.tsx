@@ -2,12 +2,22 @@
 import { useEffect, useState } from "react";
 import styles from "./blog.module.css";
 
-const BlogToc = ({toc}) => {
+// 各TOCエントリの型を定義
+interface TocEntry {
+  text: string;
+  id: string;
+}
+
+// BlogTocコンポーネントのプロパティの型を定義
+interface BlogTocProps {
+  toc: TocEntry[];
+}
+const BlogToc = ({toc}:BlogTocProps) => {
   const [activeSection, setActiveSection] = useState('toc1');
   useEffect(() => {
     const handleScroll = () => {
       let currentSection = activeSection;
-      toc.forEach(section => {
+      toc.forEach((section: { id: string; }) => {
         const element = document.getElementById(section.id);
         if (element && window.scrollY >= element.offsetTop - 10) {
           currentSection = section.id;
@@ -29,7 +39,7 @@ const BlogToc = ({toc}) => {
         <p className={styles.tocTitle}>記事の内容</p>
         <ul>
           {
-            toc.map((item:any,key:any)=>(
+            toc.map((item,key)=>(
               <li key={key} className={activeSection === `toc${key+1}` ? `${styles.tocActive}` : ''}>
               <a href={`#${key}`}>{key + 1}. {item.text}</a>
             </li>

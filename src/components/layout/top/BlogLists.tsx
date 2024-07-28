@@ -1,35 +1,27 @@
-"use client"
-
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import styles from "./top.module.css";
 import dayjs from 'dayjs';  // day.js をインポート
+import {GetPostsEdgesResult} from '../../../lib/helpers/apiType'
 
+interface BlogListsProps {
+  topData: GetPostsEdgesResult;
+}
 
+export default function BlogLists({ topData }: BlogListsProps) {
 
-export default function BlogLists({topData=[]}) {
-
-const [tabNum, setTabNum] = useState(0);
-const blogDataList = topData?.data?.posts?.edges;
-console.log(topData.data.posts.edges[0].node)
+const blogDataList = topData?.data.posts?.edges ? topData?.data.posts?.edges : [];
 const changeDateFormat = (date:string) => {
   const formattedDate = dayjs(date).format('YYYY-MM-DD');  // YYYYMMDD 形式にフォーマット
   return formattedDate;
 }
-
-
-// useEffect(()=>{
-//   console.log("=======TESUTO======")
-//   console.log(tabNum)
-// },[tabNum])
-
   return (
     <>
       <section className={`${styles.blogLists} pcWidth`}>
         <div>
           <div className={styles.tabItems}>
-            <p className={styles.tabItem} onClick={()=>{setTabNum(3)}}>記事一覧</p> 
+            <p className={styles.tabItem}>記事一覧</p> 
           </div>  
         </div>
         

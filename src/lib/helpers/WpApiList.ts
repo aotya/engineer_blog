@@ -1,5 +1,6 @@
 import axios from 'axios';
 import sanitizeContent from "./Sanitize";
+import {GetPostsEdgesResult} from "./apiType";
 // WPに連携するベースとなるapi
 export async function getWpData(query = "", { variables }: Record<string, any> = {}) {
   const url = process.env.GRAPHQL_ENDPOINT;
@@ -23,7 +24,7 @@ export async function getWpData(query = "", { variables }: Record<string, any> =
   }
 }
 
-export async function getArticlesList({ variables }: Record<string, any> = {}) {
+export async function getArticlesList({ variables }: Record<string, any> = {}): Promise<GetPostsEdgesResult | undefined> {
   try {
     const articles = await getWpData(`
     query GetPostsEdges {
@@ -51,25 +52,27 @@ export async function getArticlesList({ variables }: Record<string, any> = {}) {
         }
       }
     }`, { variables: variables });
-    return articles;
+    return articles as GetPostsEdgesResult;
   } catch (error) {
     console.error("Articles fetching failed:", error);
+    return undefined;
   }
 }
 
-const preserveTags = (content, tagName) => {
+
+const preserveTags = (content:string, tagName:String) => {
   const regex = new RegExp(`<${tagName}>([\\s\\S]*?)<\\/${tagName}>`, 'gi');
-  let placeholders = [];
+  let placeholders: string[] = [];
   let index = 0;
-  content = content.replace(regex, (match, p1) => {
+  content = content.replace(regex, (match: any, p1: any) => {
     placeholders.push(p1);
     return `<${tagName}-placeholder-${index++}></${tagName}-placeholder>`;
   });
   return { content, placeholders };
 };
 
-const restoreTags = (content, tagName, placeholders) => {
-  placeholders.forEach((text, index) => {
+const restoreTags = (content: string, tagName: string, placeholders: any[]) => {
+  placeholders.forEach((text: any, index: any) => {
     content = content.replace(
       new RegExp(`<${tagName}-placeholder-${index}></${tagName}-placeholder>`, 'gi'),
       `<${tagName}>${text}</${tagName}>`

@@ -1,7 +1,7 @@
 // lib/helpers/sanitize.js
 import sanitizeHtml from 'sanitize-html';
 
-const sanitizeContent = (content) => {
+const sanitizeContent = (content: string) => {
   return sanitizeHtml(content, {
     allowedTags: [
       'b', 'i', 'em', 'strong', 'a', 'br', 'ul', 'ol', 'li', 

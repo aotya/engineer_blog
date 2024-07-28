@@ -43,9 +43,80 @@
 
 .profileName span {
   font-size: 12px;
-
+}
+.spMenu {
+  display: none;
 }
 
 @media screen and (max-width: 760px) { 
+  .headerMenu {
+    display: none;
+  }
+  /*==================================================
+　5-2-5 MENUが☓に
+===================================*/
 
+/*ボタン外側※レイアウトによってpositionや形状は適宜変更してください*/
+.spMenu{
+  display: block;
+  position: relative;/*ボタン内側の基点となるためrelativeを指定*/
+  background:#60A2B0;
+  cursor: pointer;
+    width: 40px;
+    height:40px;
+  border-radius: 5px;
+}
+
+/*ボタン内側*/
+.spMenu span{
+    display: inline-block;
+    transition: all .4s;/*アニメーションの設定*/
+    position: absolute;
+  }
+
+.spMenu span:nth-of-type(1),
+.spMenu span:nth-of-type(3) {
+    height: 2px;
+  background: #fff;
+    width: 62%;
+    left: 50%;
+    transform: translate(-50%,0);
+ }
+
+.spMenu span:nth-of-type(1) {
+  top: 7px; 
+}
+
+.spMenu span:nth-of-type(2) {
+  top: 12px;
+  left: 50%;
+  transform: translate(-50%,0);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.spMenu span:nth-of-type(3) {
+  bottom: 7px;
+}
+
+/*activeクラスが付与されると線が回転して×になり、Menu表記をしている2つ目の要素が透過して消える*/
+.spMenu.active span:nth-of-type(1) {
+  top: 33%;
+  left: 22%;
+  transform: translate(-50%,-50%);
+    transform: translateY(6px) rotate(-45deg);
+    width: 60%;
+}
+
+.spMenu.active span:nth-of-type(2) {
+  opacity: 0;
+}
+
+.spMenu.active span:nth-of-type(3){
+  top: 63%;
+  left: 23%;
+    transform: translateY(-6px) rotate(45deg);
+    width: 60%;
+}
 }
