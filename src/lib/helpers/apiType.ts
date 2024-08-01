@@ -37,12 +37,11 @@ interface PostEdge {
 }
 
 // ポストの型
-interface Posts {
+interface Edges {
   edges: PostEdge[];
 }
 
 // クエリ結果の型
 export interface GetPostsEdgesResult {
-  data: any;
-  posts: Posts;
+  posts: Edges;
 }

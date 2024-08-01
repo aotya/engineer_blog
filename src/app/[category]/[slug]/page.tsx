@@ -13,7 +13,9 @@ import Profile from '../../../components/elements/Profile'
 
 const BlogArticlePage = async ({ params }: { params: { slug: string } }) => {
   const data = await getArticleBySlug(params.slug);
+  console.log("=================TEST1==============")
   const body = HighlightAutoCord(data.content)
+  console.log("=================TEST2==============")
   const toc = renderToc(data.content)
   const changeDateFormat = (date:string) => {
     const formattedDate = dayjs(date).format('YYYY年MM月DD日');  // YYYYMMDD 形式にフォーマット

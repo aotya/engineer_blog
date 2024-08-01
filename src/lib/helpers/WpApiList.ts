@@ -52,7 +52,7 @@ export async function getArticlesList({ variables }: Record<string, any> = {}): 
         }
       }
     }`, { variables: variables });
-    return articles as GetPostsEdgesResult;
+    return articles.data as GetPostsEdgesResult;
   } catch (error) {
     console.error("Articles fetching failed:", error);
     return undefined;

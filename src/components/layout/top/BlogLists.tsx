@@ -11,7 +11,7 @@ interface BlogListsProps {
 
 export default function BlogLists({ topData }: BlogListsProps) {
 
-const blogDataList = topData?.data.posts?.edges ? topData?.data.posts?.edges : [];
+const blogDataList = topData?.posts?.edges ? topData?.posts?.edges : [];
 const changeDateFormat = (date:string) => {
   const formattedDate = dayjs(date).format('YYYY-MM-DD');  // YYYYMMDD 形式にフォーマット
   return formattedDate;
@@ -27,7 +27,7 @@ const changeDateFormat = (date:string) => {
         
         {blogDataList.length > 0 ? (
           <ul className={styles.blogCardsList}>
-            {blogDataList.map((item: any, index: any) => (
+            {blogDataList.map((item, index) => (
               <li className={styles.blogCardContainer} key={item.node.id}>
                 <Link href={`/cord/${item.node.slug}/`}>
                   <div>
