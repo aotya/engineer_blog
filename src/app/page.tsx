@@ -10,7 +10,7 @@ export default async function Home() {
 
 
   try {
-    data = await getArticlesList();
+    data = await getArticlesList({first:10, after: null});
   } catch (error) {
     console.error('Failed to fetch articles:', error);
     data = undefined;

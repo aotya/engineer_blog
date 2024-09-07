@@ -5,6 +5,12 @@
   align-items: center;
 }
 
+.headerLogoContainer {
+  display: flex;
+  align-items: center;
+  color: #60A2B0;
+}
+
 .headerMenu {
   display: flex;
   gap: 2.5rem;
@@ -14,6 +20,12 @@
 @media screen and (max-width: 760px) { 
   .headerMenu {
     display: none;
+  }
+
+  .headerLogoContainer p {
+    display: none;
+
+
   }
   /*==================================================
 　5-2-5 MENUが☓に

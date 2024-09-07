@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import styles from "./blog.module.css";
 
@@ -13,7 +13,7 @@ interface BlogTocProps {
   toc: TocEntry[];
 }
 const BlogToc = ({toc}:BlogTocProps) => {
-  const [activeSection, setActiveSection] = useState('toc1');
+  const [activeSection, setActiveSection] = useState('toc0');
   useEffect(() => {
     const handleScroll = () => {
       let currentSection = activeSection;
@@ -36,12 +36,15 @@ const BlogToc = ({toc}:BlogTocProps) => {
   return (
     <div className={`${styles.sideContentWrap}`}>
       <div className={styles.sideToc}>
-        <p className={styles.tocTitle}>記事の内容</p>
+        {/* <p className={styles.tocTitle}>記事の内容</p> */}
         <ul>
+          <li className={activeSection === `toc0` ? `${styles.tocActive}` : ''}>
+            <a href="#">TOP</a>
+          </li>
           {
             toc.map((item,key)=>(
               <li key={key} className={activeSection === `toc${key+1}` ? `${styles.tocActive}` : ''}>
-              <a href={`#${key}`}>{key + 1}. {item.text}</a>
+              <a href={`#toc${key + 1}`}>{item.text}</a>
             </li>
 
             ))

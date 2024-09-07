@@ -1,14 +1,22 @@
 import axios from 'axios';
 import sanitizeContent from "./Sanitize";
-import {GetPostsEdgesResult} from "./apiType";
+import {GetPostsEdgesResult, SlugResult} from "./apiType";
 // WPに連携するベースとなるapi
 export async function getWpData(query = "", { variables }: Record<string, any> = {}) {
   const url = process.env.GRAPHQL_ENDPOINT;
+  const refreshToken = process.env.WORDPRESS_AUTH_REFRESH_TOKEN;
   try {
     const response = await axios.post(`${url}`, {
       query,
       variables,
-    });
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${refreshToken}`,
+      },
+    }
+    );
 
     const { data } = response;
     if (data.errors) {
@@ -24,34 +32,43 @@ export async function getWpData(query = "", { variables }: Record<string, any> =
   }
 }
 
-export async function getArticlesList({ variables }: Record<string, any> = {}): Promise<GetPostsEdgesResult | undefined> {
+export async function getArticlesList({ first = 10, after = null }: { first?: number; after?: string | null } = {}) {
   try {
     const articles = await getWpData(`
-    query GetPostsEdges {
-      posts {
-        edges {
-          node {
-            id
-            title
-            date
-            content
-            slug
-            categories {
-              nodes {
-                name
-                uri
+      query GetPostsEdges($first: Int!, $after: String) {
+        posts(first: $first, after: $after) {
+          edges {
+            node {
+              id
+              title
+              date
+              content
+              slug
+              categories {
+                nodes {
+                  name
+                  uri
+                }
               }
-            }
-            featuredImage {
-              node {
-                link
+              featuredImage {
+                node {
+                  link
+                }
               }
+              postId
             }
-            postId
+            cursor
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
           }
         }
       }
-    }`, { variables: variables });
+    `, {
+      variables: { first, after }
+    });
+    
     return articles.data as GetPostsEdgesResult;
   } catch (error) {
     console.error("Articles fetching failed:", error);
@@ -128,4 +145,25 @@ if (articlesData && articlesData.content) {
   }
 }
 
+
+// スラッグのみを取得する関数
+export async function getAllSlugs(): Promise<SlugResult | undefined> {
+  try {
+    const slugs = await getWpData(`
+    query GetSlugs {
+      posts {
+        edges {
+          node {
+            slug
+          }
+        }
+      }
+    }`);
+
+    return slugs.data as SlugResult;
+  } catch (error) {
+    console.error("Slug fetching failed:", error);
+    return undefined;
+  }
+}
 

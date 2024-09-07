@@ -62,7 +62,7 @@
 .cardItemImage {
   object-fit: scale-down;
   margin-bottom: 10px;
-  height: 170px;
+  max-height: 170px;
   border: 1px solid #ededed;
   border-radius: 6px;
 }
@@ -86,7 +86,7 @@
 }
 
 .cardTitle {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -157,15 +157,15 @@
   
   .blogCardsList {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 10px;
     row-gap: 30px;
   }
   
   .cardItemImage {
-    object-fit: scale-down;
+    object-fit: cover;
     margin-bottom: 10px;
   }
   
@@ -183,7 +183,7 @@
     box-shadow: 1px 2px 7px #94a3b8;
     padding: 20px 14px;
     border-radius: 6px;
-    width: 100%;
+    width: 47%;
   
   }
   
@@ -199,6 +199,18 @@
     color: #65717B;
   }
   
+}
 
 
+@media screen and (max-width: 499px) {
+
+  .blogCardsList {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .blogCardContainer {
+    width: 100%;
+  
+  }
 }

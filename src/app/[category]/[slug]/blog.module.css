@@ -1,5 +1,5 @@
 .mainBlogWrap {
-  max-width: 1200px;
+  max-width: 1080px;
   display: flex;
   margin: 30px auto;
   justify-content: center;
@@ -11,6 +11,9 @@
   margin-bottom: 30px;
 }
 
+.blogArticleContainer {
+  max-width: 720px;
+}
 .categoryBlock {
   display: inline-block;
   padding: 8px 16px;
@@ -29,7 +32,7 @@
 .blogDate {
   font-size: 16px;
   font-weight: 600;
-  text-align: right;
+  text-align: left;
   margin-bottom: 40px;
 }
 .thumbnail {
@@ -55,15 +58,53 @@
   border: 1px solid #e5e5e5;
 }
 
+.sideToc::before {
+  background-color: #E3EEEF;
+  content: "";
+  height: calc(100% - 64px);
+  position: absolute;
+  top: 32px;
+  width: 2px;
+}
+
 .tocTitle {
-  font-size: 20px;
+  font-size: 14px;
   color: #000;
   font-weight: bold;
 }
 
 .tocActive {
-  color: #000;
+  color: #60A2B0;
   font-weight: bold;
+}
+
+.tocActive::before {
+  background-color: #60A2B0 !important;
+  border: 3px solid #60A2B0 !important;
+}
+
+.sideToc li {
+  font-size: 12px;
+  padding-left: 12px;
+  padding-bottom: 5px;
+  position: relative;
+}
+
+.sideToc li::before {
+  background-color: #E3EEEF;
+  border: 3px solid #E3EEEF;
+  border-radius: 50%;
+  content: "";
+  height: 6px;
+  left: -2px;
+  position: absolute;
+  top: 10px;
+  transition: background-color .3s;
+  width: 6px;
+}
+
+.sideToc li:hover {
+  color: #60A2B0;
 }
 
 @media screen and (max-width: 760px) {
@@ -100,7 +141,6 @@
   .blogDate {
     font-size: 14px;
     font-weight: 600;
-    text-align: right;
     margin-bottom: 20px;
   }
   .sideContentWrap {

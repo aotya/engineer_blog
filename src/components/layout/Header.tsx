@@ -9,15 +9,17 @@ export default function Header() {
   return (
     <nav className="bgColor">
       <div className={`${styles.headerContainer} pcWidth`}>
-        <div>
-        <Image
-          width={67}
-          height={67}
-          alt="profile_icon"
-          src={"/logo.png"}
-        />
-        <p>Lv1 Start ! Front Engineer Blog</p>
-        </div>
+        <a href="/">
+          <div className={styles.headerLogoContainer}>
+            <Image
+              width={67}
+              height={67}
+              alt="profile_icon"
+              src={"/logo.png"}
+            />
+            <p>Lv1 Start ! Front Engineer Blog</p>
+          </div>
+        </a>
         {/* TODO:コンテンツが増えたら */}
         {/* <div className={styles.headerMenu}>
           <p>勉強方法</p>

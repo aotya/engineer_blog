@@ -45,3 +45,15 @@ interface Edges {
 export interface GetPostsEdgesResult {
   posts: Edges;
 }
+
+
+
+export interface SlugResult {
+  posts: {
+    edges: {
+      node: {
+        slug: string;
+      };
+    }[];
+  };
+};
