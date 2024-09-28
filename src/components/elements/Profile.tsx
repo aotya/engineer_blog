@@ -7,7 +7,7 @@ import styles from "./common.module.css";
 const Profile = () => {
 
 return (
-  <div className={styles.profileContainer}>
+  <section className={styles.profileContainer}>
     <div className={styles.profileImage}>
       <Image 
         src="/profileIcon.jpg"
@@ -24,7 +24,7 @@ return (
       （30代から1からコーダーや、フロントエンドエンジアを目指す人に役立つ情報も発信したいな）
       </p>
     </div>
-  </div>
+  </section>
 )
 
 }

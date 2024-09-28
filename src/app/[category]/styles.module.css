@@ -1,37 +1,30 @@
-.topTitleBg {
-  background-color: #F7F7F7;
+.articleTitle {
   width: 100%;
+  height: 200px;
+  background-color: #f7f7f7;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 25px;
 }
 
-.topTitleLogo {
-  padding-top: 80px;
-  text-align: center;
-
-}
-
-.topTitle {
+.articleTitle h1 {
   font-size: 40px;
-  font-weight: bold;
-  padding: 0 20px 36px;
   text-align: center;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 25px;
 }
 
-.topTitle span {
-  color: #60A2B0;
-}
-
-.topLeadText {
+.articleTitle p {
   font-size: 24px;
   text-align: center;
-  padding: 0 20px 112px;
+  font-weight: 500;
+  line-height: 1;
 }
 
-.linkCardsContainer {
-  padding: 64px 20px 0;
-  display: flex;
-  justify-content: space-between;
-  gap: 36px;
-}
+
 
 .blogLists {
   padding: 60px 20px;
@@ -60,7 +53,7 @@
 }
 
 .cardItemImage {
-  object-fit: fill;
+  object-fit: scale-down;
   margin-bottom: 10px;
   max-height: 170px;
   border: 1px solid #ededed;
@@ -97,41 +90,9 @@
   color: #65717B;
 }
 
+
 @media screen and (max-width: 760px) {
 
-  .topTitleBg {
-    background-color: #F7F7F7;
-    width: 100%;
-  }
-  
-  .topTitleLogo {
-    padding-top: 20px;
-    text-align: center;
-  }
-  .topLogo {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .topTitle {
-    font-size: 23px;
-    font-weight: bold;
-    padding: 0 20px;
-    text-align: center;
-  }
-  
-  .topTitle span {
-    color: #60A2B0;
-  }
-  
-  .topLeadText {
-    font-size: 20px;
-    text-align: center;
-    padding: 0 20px 40px;
-  }
-  
-
-  
   .blogLists {
     padding: 60px 20px;
   }
@@ -193,19 +154,6 @@
     font-size: 14px;
     color: #65717B;
   }
-  
-}
 
 
-@media screen and (max-width: 499px) {
-
-  .blogCardsList {
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
-  .blogCardContainer {
-    width: 100%;
-  
-  }
 }

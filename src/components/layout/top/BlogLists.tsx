@@ -12,10 +12,24 @@ interface BlogListsProps {
 export default function BlogLists({ topData }: BlogListsProps) {
 
 const blogDataList = topData?.posts?.edges ? topData?.posts?.edges : [];
-const changeDateFormat = (date:string) => {
-  const formattedDate = dayjs(date).format('YYYY-MM-DD');  // YYYYMMDD 形式にフォーマット
-  return formattedDate;
-}
+  const changeDateFormat = (date:string) => {
+    const formattedDate = dayjs(date).format('YYYY-MM-DD');  // YYYYMMDD 形式にフォーマット
+    return formattedDate;
+  }
+
+  const createUrl = (slug: any, categoryList: any) => {
+    const list = categoryList.reverse()
+
+    const combinedString = list.map((str: any) => `/${str.slug}`).join("");
+    const url = combinedString + `/${slug}/`
+    
+
+    return (
+      <Link href={url} >test</Link>
+    )
+
+  }
+
   return (
     <>
       <section className={`${styles.blogLists} pcWidth`}>
@@ -29,15 +43,19 @@ const changeDateFormat = (date:string) => {
           <ul className={styles.blogCardsList}>
             {blogDataList.map((item, index) => (
               <li className={styles.blogCardContainer} key={item.node.id}>
-                <Link href={`/cord/${item.node.slug}/`}>
+                <Link href={`/css/${item.node.slug}/`}>
                   <div>
+                    {
+                      item.node.featuredImage && (
                     <Image 
                       src={item.node.featuredImage.node.link}
                       width={500}
                       height={500}
                       alt="profile_icon"
                       className={styles.cardItemImage}
-                    />
+                      />
+                      )
+                      }
                   </div>
                   <div>
                     <p className={styles.cardTag}>{item.node.categories.nodes[0].name}</p>
@@ -45,6 +63,7 @@ const changeDateFormat = (date:string) => {
                     <p className={styles.cardDate}>{changeDateFormat(item.node.date)}</p>
                   </div>
                 </Link>
+                {createUrl(item.node.slug, item.node.categories.nodes)}
               </li>
             ))}
           </ul>

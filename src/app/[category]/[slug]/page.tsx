@@ -17,7 +17,16 @@ type ArticleData = {
       link: string;
     };
   };
+  terms: {
+    nodes: category[];
+  };
 };
+
+type category = {
+  id: string;
+  name: string;
+  slug: string;
+}
 
 type Props = {
   params: {
@@ -35,6 +44,19 @@ type SlugNode = {
 // 記事ページコンポーネント
 const BlogArticlePage = async ({ params }: Props) => {
   const data: ArticleData = await getArticleBySlug(params.slug);
+  // console.log(data.content)
+
+  const renderPankuzu = () => {
+    const list =  data.terms.nodes.reverse();
+
+    return(
+      <>
+        {list.map((item)=>(
+          <li><a href="/">{item.name}</a></li>
+        ))}
+      </>
+    )
+  }
 
   // コンテンツのハイライトと目次の生成
   const body = HighlightAutoCord(data.content);
@@ -47,26 +69,29 @@ const BlogArticlePage = async ({ params }: Props) => {
 
   return (
     <main className="globalMainBlogWrap">
-      <div className={styles.mainBlogWrap}>
-        <div className={styles.blogArticleContainer}>
+      <div className={`${styles.mainBlogWrap}`}>
+        <div className={`${styles.blogArticleContainer} blogMainArticle`}>
           <ul className={styles.breadcrumb}>
-            <li>ホーム ＞</li>
-            <li>HTML</li>
+            <li><a href="/">ホーム</a></li>
+            {renderPankuzu()}
+            <li>{data.title}</li>
           </ul>
           <p className={styles.categoryBlock}>HTML</p>
-          <p className={styles.blogTitle}>{data.title}</p>
+          <h1 className={styles.blogTitle}>{data.title}</h1>
           <p className={styles.blogDate}>{changeDateFormat(data.date)}</p>
-          <div>
+          <div className={styles.articleMainImageContainer}>
             <Image
               src={data.featuredImage.node.link}
               width={720}
               height={400}
-              alt="profile_icon"
+              alt={data.title}
               className={styles.thumbnail}
             />
           </div>
-          <div dangerouslySetInnerHTML={{ __html: body.html() }} />
-          <Profile />
+          <div dangerouslySetInnerHTML={{ __html: body }} />
+          <div className={styles.ProfileContainer}>
+            <Profile />
+          </div>
         </div>
         <BlogToc toc={toc} />
       </div>
@@ -84,6 +109,5 @@ export async function generateStaticParams() {
   const paths = slugs?.posts?.edges.map((edge:SlugNode) => ({
     slug: edge.node.slug,
   })) || [];
-
   return paths; // 必ず配列を返す
 }

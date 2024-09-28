@@ -1,6 +1,6 @@
 import axios from 'axios';
 import sanitizeContent from "./Sanitize";
-import {GetPostsEdgesResult, SlugResult} from "./apiType";
+import {categoryAllSlugResult, GetPostsEdgesResult, SlugResult} from "./apiType";
 // WPに連携するベースとなるapi
 export async function getWpData(query = "", { variables }: Record<string, any> = {}) {
   const url = process.env.GRAPHQL_ENDPOINT;
@@ -48,6 +48,7 @@ export async function getArticlesList({ first = 10, after = null }: { first?: nu
                 nodes {
                   name
                   uri
+                  slug
                 }
               }
               featuredImage {
@@ -119,6 +120,7 @@ export async function getArticleBySlug(slug:any,{ variables }: Record<string, an
             ... on Category {
               id
               name
+              slug
             }
           }
         }
@@ -131,11 +133,10 @@ if (articlesData && articlesData.content) {
   let preData = preserveTags(articlesData.content, 'pre');
   let codeData = preserveTags(preData.content, 'code');
   
-  let contentWithBreaks = codeData.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+  let contentWithBreaks = codeData.content;
   
   contentWithBreaks = restoreTags(contentWithBreaks, 'code', codeData.placeholders);
   contentWithBreaks = restoreTags(contentWithBreaks, 'pre', preData.placeholders);
-  
   articlesData.content = sanitizeContent(contentWithBreaks);
 }
 
@@ -166,4 +167,128 @@ export async function getAllSlugs(): Promise<SlugResult | undefined> {
     return undefined;
   }
 }
+// スラッグのみを取得する関数
+export async function getAllCategories(): Promise<categoryAllSlugResult | undefined> {
+  try {
+    const slugs = await getWpData(`
+    query GetAllCategories {
+      categories {
+        edges {
+          node {
+            slug
+          }
+        }
+      }
+    }
+    `);
+
+    return slugs.data as categoryAllSlugResult;
+  } catch (error) {
+    console.error("Slug fetching failed:", error);
+    return undefined;
+  }
+}
+
+
+// スラッグからカテゴリーIDを取得
+export async function GetCategoryBySlug(slug: any): Promise<SlugResult | undefined> {
+  try {
+    const slugs = await getWpData(`
+    query GetCategoryBySlug {
+      category(id: "${slug}", idType: SLUG) {
+        categoryId
+        name
+        slug
+      }
+    }`);
+
+    return slugs.data.category ;
+  } catch (error) {
+    console.error("Slug fetching failed:", error);
+    return undefined;
+  }
+}
+
+// スカテゴリーIDから該当カテゴリ記事一覧取得
+export async function GetPostsByCategory(categoryId: any): Promise<SlugResult | undefined> {
+  try {
+    const slugs = await getWpData(`
+    query GetPostsByCategory {
+      posts(where: {categoryId: ${categoryId}}) {
+        edges {
+          node {
+            id
+            title
+            date
+            content
+            slug
+            categories {
+              nodes {
+                name
+              }
+            }
+            featuredImage {
+              node {
+                link
+              }
+            }
+          }
+        }
+      }
+    }`);
+
+    return slugs.data;
+  } catch (error) {
+    console.error("Slug fetching failed:", error);
+    return undefined;
+  }
+}
+
+
+
+export async function getArticlesCategoryList({categoryId, first = 10, after = null }: {categoryId?: string, first?: number; after?: string | null } = {}) {
+  try {
+    const articles = await getWpData(`
+      query GetPostsEdges($first: Int!, $after: String) {
+        posts(first: $first, after: $after) {
+          edges {
+            node {
+              id
+              title
+              date
+              slug
+              categories {
+                nodes {
+                  name
+                  uri
+                }
+              }
+              featuredImage {
+                node {
+                  link
+                }
+              }
+              postId
+            }
+            cursor
+          }
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+        }
+      }
+    `, {
+      variables: { first, after }
+    });
+    
+    return articles.data as GetPostsEdgesResult;
+  } catch (error) {
+    console.error("Articles fetching failed:", error);
+    return undefined;
+  }
+}
+
+
+
 

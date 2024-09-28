@@ -2,12 +2,14 @@
 import sanitizeHtml from 'sanitize-html';
 
 const sanitizeContent = (content: string) => {
+  // console.log("content")
+  // console.log(content)
   return sanitizeHtml(content, {
     allowedTags: [
       'b', 'i', 'em', 'strong', 'a', 'br', 'ul', 'ol', 'li', 
       'blockquote', 'code', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
       'img', 'table', 'thead', 'tbody', 'tr', 'td', 'th', 'div', 'span',
-      'iframe', 'p' // <p>タグを許可
+      'iframe', 'p', 'button'  // <p>タグを許可
     ],
     allowedAttributes: {
       'a': ['href', 'name', 'target', 'rel'],
@@ -16,9 +18,9 @@ const sanitizeContent = (content: string) => {
       'table': ['width', 'border', 'cellspacing', 'cellpadding'],
       'th': ['rowspan', 'colspan'],
       'td': ['rowspan', 'colspan'],
-      '*': ['style', 'class'] // すべてのタグでstyle属性とclass属性を許可
+      '*': ['style', 'class', 'onclick', 'id'] // すべてのタグでstyle属性とclass属性を許可
     },
-    allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com']
+    allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com', 'codepen.io']
   });
 };
 

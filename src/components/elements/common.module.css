@@ -30,6 +30,7 @@
   border: 1px solid #60A2B0;
   border-radius: 6px;
   max-width: 1200px;
+  align-items: center;
 }
 
 .profileImage {

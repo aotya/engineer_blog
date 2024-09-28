@@ -57,3 +57,13 @@ export interface SlugResult {
     }[];
   };
 };
+
+export interface categoryAllSlugResult {
+  categories: {
+    edges: {
+      node: {
+        slug: string;
+      };
+    }[];
+  };
+};

@@ -1,30 +1,40 @@
-import hljs from 'highlight.js'
+import hljs from 'highlight.js';
 import cheerio from 'cheerio';
-import javascript from 'highlight.js/lib/languages/javascript'; // 必要な言語のみをインポート
-import xml from 'highlight.js/lib/languages/xml'; // 追加の必要な言語
-// 必要な言語を登録
+import javascript from 'highlight.js/lib/languages/javascript';
+import xml from 'highlight.js/lib/languages/xml';
+
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('xml', xml);
 
-export const HighlightAutoCord = (body:any) => {
-  // Load the HTML body
-  const data = cheerio.load(body);
-
-  // Highlight code blocks
+export const HighlightAutoCord = (body: any) => {
+  // HTML bodyを読み込み
+  const data = cheerio.load(body, { xmlMode: false });
+  
+  // コードブロックにハイライトを適用
   data('pre code').each((_, elm) => {
-    const codeText = data(elm).text();
-    const result = hljs.highlightAuto(codeText, ['javascript', 'xml']); // 使用する言語を指定
-    data(elm).html(result.value);
-    data(elm).addClass('hljs');
+    // HTMLとしてコードを取得し、&amp;を&に置換
+    let codeHtml = data(elm).html();
+    codeHtml = codeHtml
+      .replace(/&amp;/g, '&')   // &amp; を &
+      .replace(/&lt;/g, '<')    // &lt; を <
+      .replace(/&gt;/g, '>')    // &gt; を >
+      .replace(/&vert;/g, '|'); // &vert; を |
+
+    const result = hljs.highlightAuto(codeHtml, ['javascript', 'xml']); // 使用する言語を指定
+
+    // ハイライトされたHTMLを適用
+    data(elm).html(result.value);  // エスケープ処理後のHTMLを設定
+    data(elm).addClass('hljs');  // ハイライトクラスを追加
   });
 
-  // Add dynamic IDs to h1, h2, h3 tags
+  // h1, h2, h3タグに動的なIDを付与
   data('h1, h2, h3').each((index, elem) => {
     const dynamicId = `toc${index + 1}`;
     data(elem).attr('id', dynamicId);
   });
-
-  return data;
+  
+  // 修正されたHTML文字列を返す
+  return data.html();  // HTMLの文字列を返す
 };
 
 

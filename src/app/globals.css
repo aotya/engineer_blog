@@ -56,7 +56,37 @@ img {
   padding-bottom: 4px;
   border-bottom: 3px solid #E3EEEF;
   position: relative;
+  margin-top: 48px;
+  margin-bottom: 24px;
 }
+.globalMainBlogWrap p {
+  margin: 16px 0;
+}
+
+.globalMainBlogWrap strong {
+  margin: 16px 0;
+}
+
+.blogMainArticle a {
+  color: #60A2B0;
+  text-decoration:underline;
+  display: flex;
+  align-items: center;
+}
+
+.blogMainArticle .link a::after {
+  content: "";
+  background-image: url("/ArrHoso.svg");
+  width: 30px;
+  height: 30px;
+  display: inline-block; /* 要素を表示するために必要 */
+  background-size: contain; /* 画像のサイズを調整 */
+  background-repeat: no-repeat; /* 画像が繰り返されないようにする */
+  
+}
+
+
+
 .globalMainBlogWrap h2::before {
   content: "";
   border-bottom: 3px solid #60A2B0;
@@ -68,13 +98,15 @@ img {
 .globalMainBlogWrap h3 {
   font-size: 18px;
   font-weight: bold;
-  padding: 5px 0 5px 5px;
+  padding: 5px 0 5px 15px;
   border-left: 3px solid #60A2B0;
   position: relative;
+  margin-top: 48px;
+  margin-bottom: 24px;
 }
 .globalMainBlogWrap .marker {
   font-weight: bold;
-  background-image: linear-gradient(transparent 60%, #f9f6d6 0%);
+  background-image: linear-gradient(transparent 60%, yellow 0%);
   color: #000;
   display: inline;
 }
@@ -91,7 +123,10 @@ img {
 .blogImageContainer {
   max-width: 720px;
   margin: 0 auto;
-  
+}
+
+.red {
+  color: #df5452;
 }
 
 .mokujiContainer {
@@ -150,6 +185,7 @@ img {
   margin: 0 auto;
 }
 
+
 @media screen and (max-width: 760px) {
 
 /*  */
@@ -174,13 +210,13 @@ img {
 .globalMainBlogWrap h3 {
   font-size: 18px;
   font-weight: bold;
-  padding: 5px 0 5px 5px;
+  padding: 5px 0 5px 15px;
   border-left: 3px solid #60A2B0;
   position: relative;
 }
 .globalMainBlogWrap .marker {
   font-weight: bold;
-  background-image: linear-gradient(transparent 60%, #f9f6d6 0%);
+  background-image: linear-gradient(transparent 60%, yellow 0%);
   color: #000;
 }
 
