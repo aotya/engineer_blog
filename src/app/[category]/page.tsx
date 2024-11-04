@@ -71,7 +71,7 @@ const BlogArticleList = async ({ params }: Props) => {
               <Link href={`/${slug}/${item.node.slug}/`}>
                 <div>
                   <Image 
-                    src={item.node.featuredImage.node.link}
+                    src={item.node.featuredImage.node.sourceUrl}
                     width={500}
                     height={500}
                     alt="profile_icon"

@@ -4,7 +4,7 @@ import {categoryAllSlugResult, GetPostsEdgesResult, SlugResult} from "./apiType"
 // WPに連携するベースとなるapi
 export async function getWpData(query = "", { variables }: Record<string, any> = {}) {
   const url = process.env.GRAPHQL_ENDPOINT;
-  const refreshToken = process.env.WORDPRESS_AUTH_REFRESH_TOKEN;
+  // const refreshToken = process.env.WORDPRESS_AUTH_REFRESH_TOKEN;
   try {
     const response = await axios.post(`${url}`, {
       query,
@@ -13,7 +13,7 @@ export async function getWpData(query = "", { variables }: Record<string, any> =
     {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${refreshToken}`,
+        // Authorization: `Bearer ${refreshToken}`,
       },
     }
     );
@@ -53,7 +53,7 @@ export async function getArticlesList({ first = 10, after = null }: { first?: nu
               }
               featuredImage {
                 node {
-                  link
+                  sourceUrl
                 }
               }
               postId
@@ -112,7 +112,7 @@ export async function getArticleBySlug(slug:any,{ variables }: Record<string, an
         date
         featuredImage {
           node {
-            link
+            sourceUrl
           }
         }
         terms {
@@ -229,7 +229,7 @@ export async function GetPostsByCategory(categoryId: any): Promise<SlugResult | 
             }
             featuredImage {
               node {
-                link
+                sourceUrl
               }
             }
           }
@@ -265,7 +265,7 @@ export async function getArticlesCategoryList({categoryId, first = 10, after = n
               }
               featuredImage {
                 node {
-                  link
+                  sourceUrl
                 }
               }
               postId

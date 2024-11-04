@@ -16,7 +16,7 @@ type ArticleData = {
   date: string;
   featuredImage: {
     node: {
-      link: string;
+      sourceUrl: string;
     };
   };
   terms: {
@@ -91,7 +91,7 @@ const BlogArticlePage = async ({ params }: Props) => {
           <p className={styles.blogDate}>{changeDateFormat(data.date)}</p>
           <div className={styles.articleMainImageContainer}>
             <Image
-              src={data.featuredImage.node.link}
+              src={data.featuredImage.node.sourceUrl}
               width={720}
               height={400}
               alt={data.title}

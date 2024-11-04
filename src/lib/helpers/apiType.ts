@@ -12,7 +12,7 @@ interface Categories {
 
 // 画像のノード型
 interface FeaturedImageNode {
-  link: string;
+  sourceUrl: string;
 }
 
 // 画像の型

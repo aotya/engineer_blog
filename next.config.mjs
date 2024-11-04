@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['localhost']  // 'localhost' を画像のドメインリストに追加
+    domains: [process.env.IMAGE_DOMAIN],
   },
 };
 
