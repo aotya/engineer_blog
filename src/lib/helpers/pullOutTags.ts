@@ -11,24 +11,29 @@ export const HighlightAutoCord = (body: any) => {
   const data = cheerio.load(body, { xmlMode: false });
   
   // コードブロックにハイライトを適用
-  data('pre code').each((_, elm) => {
+  data('pre code').each((_:any, elm:any) => {
     // HTMLとしてコードを取得し、&amp;を&に置換
     let codeHtml = data(elm).html();
+  // codeHtml が null でないかを確認
+  if (codeHtml !== null) {
     codeHtml = codeHtml
       .replace(/&amp;/g, '&')   // &amp; を &
       .replace(/&lt;/g, '<')    // &lt; を <
       .replace(/&gt;/g, '>')    // &gt; を >
       .replace(/&vert;/g, '|'); // &vert; を |
 
-    const result = hljs.highlightAuto(codeHtml, ['javascript', 'xml']); // 使用する言語を指定
+      const result = hljs.highlightAuto(codeHtml, ['javascript', 'xml']); // 使用する言語を指定
 
-    // ハイライトされたHTMLを適用
-    data(elm).html(result.value);  // エスケープ処理後のHTMLを設定
-    data(elm).addClass('hljs');  // ハイライトクラスを追加
+      // ハイライトされたHTMLを適用
+      data(elm).html(result.value);  // エスケープ処理後のHTMLを設定
+      data(elm).addClass('hljs');  // ハイライトクラスを追加
+    } else {
+      console.error("codeHtml is null for element:", elm);
+    }
   });
 
   // h1, h2, h3タグに動的なIDを付与
-  data('h1, h2, h3').each((index, elem) => {
+  data('h1, h2, h3').each((index:any, elem:any) => {
     const dynamicId = `toc${index + 1}`;
     data(elem).attr('id', dynamicId);
   });

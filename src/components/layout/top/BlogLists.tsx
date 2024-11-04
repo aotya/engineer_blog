@@ -17,19 +17,6 @@ const blogDataList = topData?.posts?.edges ? topData?.posts?.edges : [];
     return formattedDate;
   }
 
-  const createUrl = (slug: any, categoryList: any) => {
-    const list = categoryList.reverse()
-
-    const combinedString = list.map((str: any) => `/${str.slug}`).join("");
-    const url = combinedString + `/${slug}/`
-    
-
-    return (
-      <Link href={url} >test</Link>
-    )
-
-  }
-
   return (
     <>
       <section className={`${styles.blogLists} pcWidth`}>
@@ -43,7 +30,7 @@ const blogDataList = topData?.posts?.edges ? topData?.posts?.edges : [];
           <ul className={styles.blogCardsList}>
             {blogDataList.map((item, index) => (
               <li className={styles.blogCardContainer} key={item.node.id}>
-                <Link href={`/css/${item.node.slug}/`}>
+                <Link href={`/${item.node.categories.nodes[0].slug}/${item.node.slug}/`}>
                   <div>
                     {
                       item.node.featuredImage && (
@@ -63,7 +50,6 @@ const blogDataList = topData?.posts?.edges ? topData?.posts?.edges : [];
                     <p className={styles.cardDate}>{changeDateFormat(item.node.date)}</p>
                   </div>
                 </Link>
-                {createUrl(item.node.slug, item.node.categories.nodes)}
               </li>
             ))}
           </ul>

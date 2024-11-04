@@ -5,6 +5,7 @@ import Profile from '../../components/elements/Profile';
 import styles from "./styles.module.css";
 import { getArticleBySlug, getAllSlugs, GetCategoryBySlug, GetPostsByCategory, getAllCategories } from '../../lib/helpers/WpApiList';
 import React from 'react';
+import { Metadata } from 'next';
 
 // 記事データの型定義
 type ArticleData = {
@@ -31,6 +32,16 @@ type SlugNode = {
   };
 };
 
+
+// 動的メタデータを生成する関数
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const data: any = await GetCategoryBySlug(params.category); // APIからカテゴリデータを取得
+  return {
+    title: `${data.name} | Lv1 Start ! Front End Engineer Blog`,  // カテゴリ名をタイトルに反映
+    description: `すべての${data.name}に関する記事を表示しています。`,
+  };
+}
+
 // 記事ページコンポーネント
 const BlogArticleList = async ({ params }: Props) => {
   const data: any = await GetCategoryBySlug(params.category);
@@ -39,23 +50,21 @@ const BlogArticleList = async ({ params }: Props) => {
   const slug: string = data.slug;
   const list = listData.posts.edges;
 
-
-  console.log(list[0].node.featuredImage.node.link);
-
   // 日付フォーマットの変更
   const changeDateFormat = (date: string) => {
     return dayjs(date).format('YYYY年MM月DD日');
   };
 
   return (
-    <main className="globalMainBlogWrap">
+
+    <main>
       <section className={styles.articleTitle}>
         <div>
           <h1>{title}</h1>
           <p>記事一覧</p>
         </div>
       </section>
-      <section>
+      <section className={styles.blogCardsListContainer}>
           <ul className={styles.blogCardsList}>
           {list.map((item:any, index:any) => (
             <li className={styles.blogCardContainer} key={item.node.id}>
@@ -81,7 +90,6 @@ const BlogArticleList = async ({ params }: Props) => {
 
 
       </section>
-
     </main>
   );
 };

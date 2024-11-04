@@ -9,6 +9,7 @@
 .breadcrumb {
   display: flex;
   margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
 .breadcrumb li {

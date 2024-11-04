@@ -166,6 +166,7 @@ img {
   border-radius: 6px;
   padding: 10px 20px;
   position: relative;
+  margin-top: 40px;
 }
 
 .pointLabel {
@@ -177,6 +178,27 @@ img {
   position: absolute;
   top: -14px;
   left: 5%;
+}
+
+.cautionContainer {
+  border: 2px solid #C24F4F;
+  border-radius: 6px;
+  padding: 10px 20px;
+  position: relative;
+  margin-top: 40px;
+}
+
+.cautionLabel {
+  font-size: 13px;
+  background-color: #C24F4F;
+  color: #fff;
+  border-radius: 6px;
+  padding: 5px 10px;
+  position: absolute;
+  top: -14px;
+  left: 5%;
+  width: 70px;
+  text-align: center;
 }
 
 .space {
@@ -230,6 +252,10 @@ img {
 }
 
 
+}
+
+.hljs {
+  font-size: 13px;
 }
 
 

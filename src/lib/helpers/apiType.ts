@@ -2,6 +2,7 @@
 interface CategoryNode {
   name: string;
   uri: string;
+  slug: string;
 }
 
 // カテゴリの型

@@ -31,7 +31,7 @@ const BlogToc = ({toc}:BlogTocProps) => {
       // スクロールイベントリスナーを削除するために使われます。
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [toc]);
+  }, [toc, activeSection]);
 
   return (
     <div className={`${styles.sideContentWrap}`}>

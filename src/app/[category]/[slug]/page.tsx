@@ -6,6 +6,8 @@ import 'highlight.js/styles/hybrid.css';
 import BlogToc from './BlogToc';
 import Profile from '../../../components/elements/Profile';
 import { getArticleBySlug, getAllSlugs } from '../../../lib/helpers/WpApiList';
+import Link from "next/link";
+import { Metadata } from 'next';
 
 // 記事データの型定義
 type ArticleData = {
@@ -41,18 +43,26 @@ type SlugNode = {
   };
 };
 
+// 動的メタデータを生成する関数
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const data: ArticleData = await getArticleBySlug(params.slug); // APIからカテゴリデータを取得
+  return {
+    title: `${data.title} | Lv1 Start ! Front End Engineer Blog`,  // カテゴリ名をタイトルに反映
+    description: `${data.title}に関する説明をしている記事になります`,
+  };
+}
+
 // 記事ページコンポーネント
 const BlogArticlePage = async ({ params }: Props) => {
   const data: ArticleData = await getArticleBySlug(params.slug);
-  // console.log(data.content)
 
   const renderPankuzu = () => {
     const list =  data.terms.nodes.reverse();
-
     return(
       <>
         {list.map((item)=>(
-          <li><a href="/">{item.name}</a></li>
+            <li key={item.id}><Link href={`/${item.slug}/`}>{item.name}</Link></li>
+          
         ))}
       </>
     )
@@ -76,7 +86,7 @@ const BlogArticlePage = async ({ params }: Props) => {
             {renderPankuzu()}
             <li>{data.title}</li>
           </ul>
-          <p className={styles.categoryBlock}>HTML</p>
+          <Link href={`/${data.terms.nodes[1].slug}/`}><p className={styles.categoryBlock}>{data.terms.nodes[1].name}</p></Link>
           <h1 className={styles.blogTitle}>{data.title}</h1>
           <p className={styles.blogDate}>{changeDateFormat(data.date)}</p>
           <div className={styles.articleMainImageContainer}>

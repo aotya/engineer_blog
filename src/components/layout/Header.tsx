@@ -17,7 +17,7 @@ export default function Header() {
               alt="profile_icon"
               src={"/logo.png"}
             />
-            <p>Lv1 Start ! Front Engineer Blog</p>
+            <p>Lv1 Start ! Front End Engineer Blog</p>
           </div>
         </a>
         {/* TODO:コンテンツが増えたら */}

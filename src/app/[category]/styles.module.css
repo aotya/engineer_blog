@@ -50,6 +50,7 @@
   flex-wrap: wrap;
   gap: 5%;
   row-gap: 30px;
+  padding: 0 20px;
 }
 
 .cardItemImage {
@@ -61,7 +62,7 @@
 }
 
 .cardTag {
-  background-color: #000;
+  background-color: #60A2B0;
   color: #fff;
   font-size: 12px;
   padding: 3px 8px;
@@ -88,6 +89,11 @@
 .cardDate {
   font-size: 14px;
   color: #65717B;
+}
+
+.blogCardsListContainer {
+  max-width: 1200px;
+  margin: 60px auto;
 }
 
 
@@ -126,7 +132,6 @@
   }
   
   .cardTag {
-    background-color: #000;
     color: #fff;
     font-size: 12px;
     padding: 3px 8px;
@@ -154,6 +159,18 @@
     font-size: 14px;
     color: #65717B;
   }
+}
 
 
+@media screen and (max-width: 499px) {
+
+  .blogCardsList {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .blogCardContainer {
+    width: 100%;
+  
+  }
 }

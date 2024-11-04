@@ -2,8 +2,6 @@
 import sanitizeHtml from 'sanitize-html';
 
 const sanitizeContent = (content: string) => {
-  // console.log("content")
-  // console.log(content)
   return sanitizeHtml(content, {
     allowedTags: [
       'b', 'i', 'em', 'strong', 'a', 'br', 'ul', 'ol', 'li', 
