@@ -137,7 +137,8 @@ if (articlesData && articlesData.content) {
   
   contentWithBreaks = restoreTags(contentWithBreaks, 'code', codeData.placeholders);
   contentWithBreaks = restoreTags(contentWithBreaks, 'pre', preData.placeholders);
-  articlesData.content = sanitizeContent(contentWithBreaks);
+  // articlesData.content = sanitizeContent(contentWithBreaks);
+  articlesData.content = contentWithBreaks;
 }
 
     return articlesData;

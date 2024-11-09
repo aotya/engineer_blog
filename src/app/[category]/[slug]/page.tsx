@@ -87,7 +87,7 @@ const BlogArticlePage = async ({ params }: Props) => {
             <li>{data.title}</li>
           </ul>
           <Link href={`/${data.terms.nodes[1].slug}/`}><p className={styles.categoryBlock}>{data.terms.nodes[1].name}</p></Link>
-          <h1 className={styles.blogTitle}>{data.title}</h1>
+          <h1 id="toc0" className={styles.blogTitle}>{data.title}</h1>
           <p className={styles.blogDate}>{changeDateFormat(data.date)}</p>
           <div className={styles.articleMainImageContainer}>
             <Image

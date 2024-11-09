@@ -7,7 +7,7 @@ const sanitizeContent = (content: string) => {
       'b', 'i', 'em', 'strong', 'a', 'br', 'ul', 'ol', 'li', 
       'blockquote', 'code', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
       'img', 'table', 'thead', 'tbody', 'tr', 'td', 'th', 'div', 'span',
-      'iframe', 'p', 'button'  // <p>タグを許可
+      'iframe', 'p', 'button','html','head','meta', 'body',   // <p>タグを許可
     ],
     allowedAttributes: {
       'a': ['href', 'name', 'target', 'rel'],

@@ -21,6 +21,8 @@ const BlogToc = ({toc}:BlogTocProps) => {
         const element = document.getElementById(section.id);
         if (element && window.scrollY >= element.offsetTop - 10) {
           currentSection = section.id;
+        } else if (window.scrollY == 0) {
+          currentSection = 'toc0';
         }
       });
       setActiveSection(currentSection);
