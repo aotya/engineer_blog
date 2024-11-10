@@ -86,7 +86,7 @@ const BlogArticlePage = async ({ params }: Props) => {
             {renderPankuzu()}
             <li>{data.title}</li>
           </ul>
-          <Link href={`/${data.terms.nodes[1].slug}/`}><p className={styles.categoryBlock}>{data.terms.nodes[1].name}</p></Link>
+          <Link href={`/${data.terms.nodes[1].slug}/`}><p className={styles.categoryBlock}><span className={styles.categoryName}>{data.terms.nodes[1].name}</span></p></Link>
           <h1 id="toc0" className={styles.blogTitle}>{data.title}</h1>
           <p className={styles.blogDate}>{changeDateFormat(data.date)}</p>
           <div className={styles.articleMainImageContainer}>

@@ -52,7 +52,14 @@ top: 1px;
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 30px;
+  border-radius: 4px;
 }
+
+.categoryName {
+  position: relative;
+  top: 2px;
+}
+
 .blogTitle {
   font-size: 24px;
   font-weight: bold;
@@ -170,6 +177,7 @@ top: 1px;
     font-weight: bold;
     margin-bottom: 15px;
   }
+  
   .blogTitle {
     font-size: 20px;
     font-weight: bold;
