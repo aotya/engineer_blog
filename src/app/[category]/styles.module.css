@@ -9,6 +9,12 @@
   row-gap: 25px;
 }
 
+.tagContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .articleTitle h1 {
   font-size: 40px;
   text-align: center;
@@ -54,7 +60,6 @@
 }
 
 .cardItemImage {
-  object-fit: scale-down;
   margin-bottom: 10px;
   max-height: 170px;
   border: 1px solid #ededed;

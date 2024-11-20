@@ -64,6 +64,12 @@ img {
   margin: 16px 0;
 }
 
+.globalMainBlogWrap time {
+  margin: 16px 0;
+  display: block;
+  font-weight: 300;
+}
+
 .globalMainBlogWrap strong {
   margin: 16px 0;
 }
@@ -171,11 +177,12 @@ img {
 }
 
 .pointLabel {
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 700;
   background-color: #60A2B0;
   color: #fff;
   border-radius: 6px;
-  padding: 5px 10px;
+  padding: 4px 10px 4px;
   position: absolute;
   top: -14px;
   left: 5%;

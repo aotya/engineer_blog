@@ -30,7 +30,7 @@ const blogDataList = topData?.posts?.edges ? topData?.posts?.edges : [];
           <ul className={styles.blogCardsList}>
             {blogDataList.map((item, index) => (
               <li className={styles.blogCardContainer} key={item.node.id}>
-                <Link href={`/${item.node.categories.nodes[0].slug}/${item.node.slug}/`}>
+                <Link className={styles.cardLink} href={`/${item.node.categories.nodes[0].slug}/${item.node.slug}/`}>
                   <div>
                     {
                       item.node.featuredImage && (
@@ -44,11 +44,13 @@ const blogDataList = topData?.posts?.edges ? topData?.posts?.edges : [];
                       )
                       }
                   </div>
-                  <div>
-                    <p className={styles.cardTag}><span className={styles.cardTagName}>{item.node.categories.nodes[0].name}</span></p>
-                    <p className={styles.cardTitle}>{item.node.title}</p>
-                    <p className={styles.cardDate}>{changeDateFormat(item.node.date)}</p>
-                  </div>
+                    <div>
+                      <div className={styles.tagContainer}>
+                        <p className={styles.cardTag}><span className={styles.cardTagName}>{item.node.categories.nodes[0].name}</span></p>
+                        <p className={styles.cardDate}>{changeDateFormat(item.node.date)}</p>
+                      </div>
+                      <p className={styles.cardTitle}>{item.node.title}</p>
+                    </div>
                 </Link>
               </li>
             ))}

@@ -6,7 +6,17 @@
 .topTitleLogo {
   padding-top: 80px;
   text-align: center;
+}
+.cardLink {
+  display: block;
+  height: 100%;
+  padding: 20px 14px;
+}
 
+.tagContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .topTitle {
@@ -85,10 +95,9 @@
 
 .blogCardContainer {
   box-shadow: 1px 2px 7px #94a3b8;
-  padding: 20px 14px;
   border-radius: 6px;
   width: 30%;
-
+  max-height: 342px;
 }
 
 .cardTitle {
@@ -181,7 +190,6 @@
 
   .blogCardContainer {
     box-shadow: 1px 2px 7px #94a3b8;
-    padding: 20px 14px;
     border-radius: 6px;
     width: 47%;
   

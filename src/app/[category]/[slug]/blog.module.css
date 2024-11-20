@@ -34,12 +34,22 @@ top: 1px;
   display: inline-block;
   padding: 0 5px;
   position: relative;
-  top: 1px;
+  top: -2px;
 }
 .breadcrumb li:last-of-type::after {
   content: "";
 }
 
+.timeContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timeContainer img {
+  width: 30px;
+  height: 30px;
+}
 
 .blogArticleContainer {
   max-width: 720px;
@@ -63,7 +73,6 @@ top: 1px;
 .blogTitle {
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 20px;
 }
 
 .blogDate {
@@ -181,7 +190,6 @@ top: 1px;
   .blogTitle {
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 10px;
   }
 
   .blogDate {

@@ -79,9 +79,11 @@ const BlogArticleList = async ({ params }: Props) => {
                   />
                 </div>
                 <div>
-                  <p className={styles.cardTag}><span className={styles.cardTagName}>{item.node.categories.nodes[0].name}</span></p>
+                  <div className={styles.tagContainer}>
+                    <p className={styles.cardTag}><span className={styles.cardTagName}>{item.node.categories.nodes[0].name}</span></p>
+                    <p className={styles.cardDate}>{changeDateFormat(item.node.date)}</p>
+                  </div>
                   <p className={styles.cardTitle}>{item.node.title}</p>
-                  <p className={styles.cardDate}>{changeDateFormat(item.node.date)}</p>
                 </div>
               </Link>
             </li>
