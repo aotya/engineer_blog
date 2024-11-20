@@ -93,6 +93,7 @@ const BlogArticlePage = async ({ params }: Props) => {
                 src="/clock.webp"
                 width={30}
                 height={30}
+                alt="投稿日アイコン"
               />
             <time dateTime={data.date} className={styles.blogDate}>{changeDateFormat(data.date)}</time>
           </div>
