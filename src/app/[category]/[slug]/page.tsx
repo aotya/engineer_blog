@@ -49,6 +49,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${data.title} | Lv1 Start ! Front End Engineer Blog`,  // カテゴリ名をタイトルに反映
     description: `${data.title}に関する説明をしている記事になります`,
+    alternates: {
+      canonical: `https://www.front-end-engineer-blog.com/${params.category}/${params.slug}`,
+    },
   };
 }
 
@@ -86,7 +89,7 @@ const BlogArticlePage = async ({ params }: Props) => {
             {renderPankuzu()}
             <li>{data.title}</li>
           </ul>
-          <Link href={`/${data.terms.nodes[1].slug}/`}><p className={styles.categoryBlock}><span className={styles.categoryName}>{data.terms.nodes[1].name}</span></p></Link>
+          <Link className={styles.tagLink} href={`/${data.terms.nodes[1].slug}/`}><p className={styles.categoryBlock}><span className={styles.categoryName}>{data.terms.nodes[1].name}</span></p></Link>
           <h1 id="toc0" className={styles.blogTitle}>{data.title}</h1>
           <div className={styles.timeContainer}>
             <Image

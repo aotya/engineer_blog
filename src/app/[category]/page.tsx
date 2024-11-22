@@ -39,6 +39,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${data.name} | Lv1 Start ! Front End Engineer Blog`,  // カテゴリ名をタイトルに反映
     description: `すべての${data.name}に関する記事を表示しています。`,
+    alternates: {
+      canonical: `https://www.front-end-engineer-blog.com/${params.category}`,
+    },
+
   };
 }
 

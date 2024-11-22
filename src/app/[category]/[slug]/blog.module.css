@@ -39,6 +39,9 @@ top: 1px;
 .breadcrumb li:last-of-type::after {
   content: "";
 }
+.tagLink {
+  display: inline-block !important;
+}
 
 .timeContainer {
   display: flex;

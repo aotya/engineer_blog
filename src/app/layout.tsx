@@ -7,6 +7,9 @@ import Footer from "../components/layout/Footer"
 export const metadata: Metadata = {
   title: "Lv1 Start ! Front End Engineer Blog",
   description: "コーダ・フロントエンドエンジニア向けの情報発信をしています",
+  alternates: {
+    canonical: "https://www.front-end-engineer-blog.com/",
+  },
 };
 
 export default function RootLayout({
