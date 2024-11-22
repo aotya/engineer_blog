@@ -33,6 +33,7 @@ type category = {
 type Props = {
   params: {
     slug: string;
+    category: string;
   };
 };
 
