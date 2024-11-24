@@ -28,7 +28,6 @@ export const HighlightAutoCord = (body: any) => {
       data(elm).html(result.value);  // エスケープ処理後のHTMLを設定
       data(elm).addClass('hljs');  // ハイライトクラスを追加
     } else {
-      console.error("codeHtml is null for element:", elm);
     }
   });
 

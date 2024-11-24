@@ -68,3 +68,25 @@ export interface categoryAllSlugResult {
     }[];
   };
 };
+
+
+
+export interface getAllPageSlugType {
+  data: {
+    posts: {
+      edges: [
+        {node: {
+            slug: string;
+            date: string;
+            categories: {
+              nodes: [
+                {slug: string},
+                {slug: string}
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

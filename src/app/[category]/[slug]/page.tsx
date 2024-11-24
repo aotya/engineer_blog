@@ -8,6 +8,7 @@ import Profile from '../../../components/elements/Profile';
 import { getArticleBySlug, getAllSlugs } from '../../../lib/helpers/WpApiList';
 import Link from "next/link";
 import { Metadata } from 'next';
+import { notFound } from '../../../../node_modules/next/navigation';
 
 // 記事データの型定義
 type ArticleData = {
@@ -47,6 +48,9 @@ type SlugNode = {
 // 動的メタデータを生成する関数
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const data: ArticleData = await getArticleBySlug(params.slug); // APIからカテゴリデータを取得
+  if (!data) {
+    notFound(); // データが見つからない場合に404ページを表示
+  }
   return {
     title: `${data.title} | Lv1 Start ! Front End Engineer Blog`,  // カテゴリ名をタイトルに反映
     description: `${data.title}に関する説明をしている記事になります`,

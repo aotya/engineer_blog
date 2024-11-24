@@ -1,6 +1,6 @@
 import axios from 'axios';
 import sanitizeContent from "./Sanitize";
-import {categoryAllSlugResult, GetPostsEdgesResult, SlugResult} from "./apiType";
+import {categoryAllSlugResult, getAllPageSlugType, GetPostsEdgesResult, SlugResult} from "./apiType";
 // WPに連携するベースとなるapi
 export async function getWpData(query = "", { variables }: Record<string, any> = {}) {
   const url = process.env.GRAPHQL_ENDPOINT;
@@ -286,6 +286,34 @@ export async function getArticlesCategoryList({categoryId, first = 10, after = n
     return articles.data as GetPostsEdgesResult;
   } catch (error) {
     console.error("Articles fetching failed:", error);
+    return undefined;
+  }
+}
+
+
+
+// スラッグからカテゴリーIDを取得
+export async function getAllPageSlug(): Promise<getAllPageSlugType | undefined> {
+  try {
+    const data = await getWpData(`
+    query GetAllPageSlug {
+      posts {
+        edges {
+          node {
+            slug
+            date
+            categories {
+              nodes {
+                slug
+              }
+            }
+          }
+        }
+      }
+    }`);
+    return data ;
+  } catch (error) {
+    console.error("Slug fetching failed:", error);
     return undefined;
   }
 }

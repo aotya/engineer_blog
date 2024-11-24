@@ -6,6 +6,7 @@ import styles from "./styles.module.css";
 import { getArticleBySlug, getAllSlugs, GetCategoryBySlug, GetPostsByCategory, getAllCategories } from '../../lib/helpers/WpApiList';
 import React from 'react';
 import { Metadata } from 'next';
+import { notFound } from '../../../node_modules/next/navigation';
 
 // 記事データの型定義
 type ArticleData = {
@@ -36,19 +37,25 @@ type SlugNode = {
 // 動的メタデータを生成する関数
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const data: any = await GetCategoryBySlug(params.category); // APIからカテゴリデータを取得
-  return {
-    title: `${data.name} | Lv1 Start ! Front End Engineer Blog`,  // カテゴリ名をタイトルに反映
-    description: `すべての${data.name}に関する記事を表示しています。`,
-    alternates: {
-      canonical: `https://www.front-end-engineer-blog.com/${params.category}`,
-    },
+  if (data) {
+    return {
+      title: `${data.name} | Lv1 Start ! Front End Engineer Blog`,  // カテゴリ名をタイトルに反映
+      description: `すべての${data.name}に関する記事を表示しています。`,
+      alternates: {
+        canonical: `https://www.front-end-engineer-blog.com/${params.category}`,
+      },
 
-  };
+    };
+  }
+  return null;
 }
 
 // 記事ページコンポーネント
 const BlogArticleList = async ({ params }: Props) => {
   const data: any = await GetCategoryBySlug(params.category);
+  if (!data) {
+    notFound(); // データが見つからない場合に404ページを表示
+  }
   const listData: any = await GetPostsByCategory(data.categoryId);
   const title: string = data.name;
   const slug: string = data.slug;
