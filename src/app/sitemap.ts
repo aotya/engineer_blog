@@ -14,7 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const createSitemapArticles:any = () => {
       if(sitemapArticlesData) {
         const blogPages: MetadataRoute.Sitemap = sitemapArticlesData.map((post) => ({
-          url: `https://www.front-end-engineer-blog.com/${post.node.categories.nodes[1].slug}/${post.node.categories.nodes[0].slug}/${post.node.slug}`,
+          url: `https://www.front-end-engineer-blog.com/${post.node.categories.nodes[0].slug}/${post.node.slug}`,
           lastModified: new Date(post.node.date),
           changeFrequency: 'weekly',
         }));
