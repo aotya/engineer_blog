@@ -63,7 +63,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // 記事ページコンポーネント
 const BlogArticlePage = async ({ params }: Props) => {
   const data: ArticleData = await getArticleBySlug(params.slug);
-
+  if (!data) {
+    notFound(); // データが見つからない場合に404ページを表示
+  }
   const renderPankuzu = () => {
     const list =  data.terms.nodes.reverse();
     return(

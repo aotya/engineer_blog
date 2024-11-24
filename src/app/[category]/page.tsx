@@ -37,7 +37,9 @@ type SlugNode = {
 // 動的メタデータを生成する関数
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const data: any = await GetCategoryBySlug(params.category); // APIからカテゴリデータを取得
-  if (data) {
+  if (!data) {
+    notFound(); // データが見つからない場合に404ページを表示
+  }
     return {
       title: `${data.name} | Lv1 Start ! Front End Engineer Blog`,  // カテゴリ名をタイトルに反映
       description: `すべての${data.name}に関する記事を表示しています。`,
@@ -47,8 +49,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     };
   }
-  return null;
-}
 
 // 記事ページコンポーネント
 const BlogArticleList = async ({ params }: Props) => {
