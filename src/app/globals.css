@@ -267,6 +267,25 @@ img {
 }
 
 
+/*左上に背景色ありタイトル*/
+.box_green {
+	padding: 30px 20px 0px;
+	position: relative; /* 配置(ここを基準に)*/
+	border: 1px solid #60A2B0; /* ボックスの線 (太さ・種類・色)*/
+	background-color: #fff; /* ボックス背景色*/
+}
+.box_green .box-title {
+	background-color:#60A2B0; /* タイトル背景色 */
+	font-size: 16px;/* タイトル文字の大きさ */
+	color: #fff ; /* タイトル文字色 */
+	padding: 7px 12px;/*タイトルの余白*/
+	line-height: 1;/*タイトルの行の高さ*/
+	position:absolute;/* 配置(ここを動かす) */
+	top: 0; /*上からの距離*/
+	left: 0; /*左からの距離*/
+}
+
+
 
   
 
