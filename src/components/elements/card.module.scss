@@ -1,0 +1,76 @@
+// .articleListItem {
+//   box-shadow: 1px 2px 7px #94a3b8;
+//   border-radius: 6px;
+//   width: 30%;
+//   max-height: 342px;
+//   @media (max-width: 768px) {
+//     width: 100%;
+//     max-width: 342px;
+//   }
+//   .cardLink {
+//     display: block;
+//     height: 100%;
+//     padding: 20px 14px;
+//     &:hover {
+//       .cardLinkInner {
+//         .cardLinkImage {
+//           img {
+//             width: 100%;
+//             height: 100%;
+//             scale: 1.1;
+//             transition: all 0.2s ease;
+//           }
+//         }
+//       }
+//     }
+//     .cardLinkInner {
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: space-between;
+//       height: 100%;
+//       .cardLinkImage {
+//         width: 100%;
+//         height: 100%;
+//         margin-bottom: 10px;
+//         border: 1px solid #ededed;
+//         border-radius: 6px;
+//         overflow: hidden;
+//         img {
+//           object-fit:scale-down;
+//           max-height: 170px;
+//           border: 1px solid #ededed;
+//           border-radius: 6px;
+//           width: 100%;
+//           scale: 1;
+//           max-width: initial;
+//           @media (max-width: 768px) {
+//             max-height: initial;
+//           }
+//         }
+//       }
+//       .cardLinkInfo {
+//         .cardLinkInfHead {
+//           display: flex;
+//           justify-content: space-between;
+//           align-items: center;
+//           margin-bottom: 10px;
+//           p {
+//             font-size: 14px;
+//             color: #000;
+//           }
+//           .categoryName {
+//             padding: 4px 8px;
+//             background-color: #47BCD3;
+//             color: #fff;
+//             border-radius: 4px;
+//           }
+//         }
+//         .articleTitle {
+//           font-size: 16px;
+//           color: #000;
+//           font-weight: 700;
+//         }
+//       }
+//     }
+//   }
+// }
