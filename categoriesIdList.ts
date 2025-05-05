@@ -1,5 +1,5 @@
 
 export const categoriesIdList = {
-  "CODING": 2,
-  "MAGAZINE": 5,
+  "CODING": 3,
+  "MAGAZINE": 10,
 }
