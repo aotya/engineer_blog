@@ -10,6 +10,11 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ item, isPickup = false }) => {
+  const sanitizedHtml = React.useMemo(() => {
+    const html = item.node.content || "";
+    // Unwrap anchor tags to avoid nested <a> inside outer Link
+    return html.replace(/<\/?a(?:\s[^>]*)?>/gi, "");
+  }, [item.node.content]);
   return (
     <li key={item.node.id} className={styles.articleListItem}>
       <Link href={`${item.node.categories.nodes[0].slug}/${item.node.slug}`} className={styles.cardLink}>
@@ -21,11 +26,11 @@ const Card: React.FC<CardProps> = ({ item, isPickup = false }) => {
             <div className={styles.cardLinkInfo}>
               <div className={isPickup ? styles.cardLinkInfHeadPickup : styles.cardLinkInfHead}>
                 <p className={isPickup ? styles.categoryNamePickup : styles.categoryName}>{item.node.categories.nodes[0].name}</p>
-                <p className={isPickup ? styles.datePickup : styles.date}>{new Date(item.node.date).toISOString().split('T')[0]}</p>
+                <p className={isPickup ? styles.datePickup : styles.date}>{(item.node.date || '').split('T')[0]}</p>
               </div>
               <p className={isPickup ? styles.articleTitlePickup : styles.articleTitle}>{item.node.title}</p>
               {isPickup && (
-                <div className={styles.articleContent} dangerouslySetInnerHTML={{ __html: item.node.content }} />
+                <div className={styles.articleContent} dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
               )}
             </div>
           </div>

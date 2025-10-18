@@ -103,16 +103,26 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 50px auto 30px;
+      margin: 50px auto 0;
     }
     &.open {
       left: 0;
+    }
+    .spCodingLink {
+      font-size: 24px;
+      font-weight: 700;
+      display: block;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      font-family: Helvetica, Roboto, sans-serif;
+      margin-bottom: 20px;
     }
     .logoContainer {
       margin: 100px auto 0;
       text-align: center;
     }
-    .spMenuCordList{
+    .spMenuList{
       display: flex;
       padding: 0 20px;
       justify-content: center;
@@ -137,6 +147,7 @@
           height: 100%;
           padding: 8px;
           color: #fff;
+          min-width: 90px;
         }
       }
     }

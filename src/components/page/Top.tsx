@@ -50,12 +50,12 @@ export default function Top() {
       <ul className={styles.ProgrammingListContainerInner}>
         {data?.nodes.map((item) => (
           <li key={item.slug}>
-            <Link href={`${item.slug}`}>
+            <Link href={`/${item.slug}`}>
               <div className={styles.ProgrammingListItem}>
               <p>{item.name}</p>
-          </div>
-        </Link>
-        </li>
+              </div>
+            </Link>
+          </li>
         ))}
     </ul>
     );

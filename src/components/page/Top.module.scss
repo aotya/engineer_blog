@@ -162,11 +162,12 @@
         font-size: 16px;
         white-space: nowrap;
         border: 2px solid #47BCD3;
+        min-width:100px;
         p {
           color: #fff;
         }
         @media (max-width: 768px) {
-          width: 80px;
+          min-width: 80px;
           height: 80px;
           font-size: 14px;
         }
@@ -248,6 +249,7 @@
                 height: 100%;
                 scale: 1.1;
                 transition: all 0.2s ease;
+                aspect-ratio: 16/9;
               }
             }
           }
@@ -266,14 +268,14 @@
             overflow: hidden;
             img {
               object-fit:scale-down;
-              max-height: 170px;
+              aspect-ratio: 16/9;
               border: 1px solid #ededed;
               border-radius: 6px;
               width: 100%;
               scale: 1;
-              max-width: initial;
+              max-height: 136px;
               @media (max-width: 768px) {
-                max-height: initial;
+                max-height: 170px;
               }
             }
           }
@@ -360,6 +362,7 @@
               height: 100%;
               img {
                 max-height: 310px;
+                aspect-ratio: 16/9;
                 @media (max-width: 1000px) {
                   max-height: 170px;
                 }
@@ -377,6 +380,7 @@
           .cardLinkInner {
             .cardLinkImage {
               height: 100%;
+              aspect-ratio: 16/9;
               img {
                 max-height: 170px;
               }
@@ -393,6 +397,7 @@
           .cardLinkInner {
             .cardLinkImage {
               height: 100%;
+              aspect-ratio: 16/9;
               img {
                 max-height: 170px;
               }
@@ -415,6 +420,7 @@
                 img {
                   scale: 1.1;
                   transition: all 0.2s ease;
+                  aspect-ratio: 16/9;
                 }
               }
             }
@@ -440,6 +446,7 @@
                 border-radius: 6px;
                 width: 100%;
                 scale: 1;
+                aspect-ratio: 16/9;
               }
             }
             .cardLinkInfo {
