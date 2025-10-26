@@ -92,6 +92,9 @@ export default function Top() {
         <h3 className={styles.latestArticleTitle}>最新の記事</h3>
         {renderProgrammingList()}
       </div>
+      <a className={styles.moreLink} href="/coding/">
+        <p>もっと見る</p>
+      </a>
     </section>
     <section className={styles.magazineContainer}>
       <div className={styles.magazineContainerInner}>
@@ -104,7 +107,9 @@ export default function Top() {
         </div>
         {renderMagazineList()}
       </div>
-
+      <a className={styles.moreLink} href="/magazine/">
+        <p>もっと見る</p>
+      </a>
     </section>
     </>
   );

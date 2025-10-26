@@ -28,10 +28,10 @@
   }
   
   h3 {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: 30px;
     position: relative;
     display: flex;
     column-gap: 11px;
@@ -78,6 +78,16 @@
     background-image: linear-gradient(transparent 60%, #ff0 0);
     color: #000;
     display: inline;
+  }
+
+  .code {
+    color: #47bcd3;
+    background-color:#EEECE7;
+    padding: .2em .4em;
+    margin: auto .2em;
+    border-radius: 2px;
+    font-size: .9em;
+    vertical-align: .2em;
   }
 
   .cautionContainer {
