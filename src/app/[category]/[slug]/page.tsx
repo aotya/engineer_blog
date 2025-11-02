@@ -32,9 +32,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 
   // HTMLタグを除去してプレーンテキストを取得
-  const description = data.data.postBy.content
+  const description = data.data.postBy.excerpt
     .replace(/<[^>]*>/g, '') // HTMLタグを削除
-    .substring(0, 160); // 最初の160文字を取得
   
   return {
     title: data.data.postBy.title,

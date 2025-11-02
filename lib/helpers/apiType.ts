@@ -97,6 +97,7 @@ export interface GetArticleBySlugResult {
       title: string;
       content: string;
       date: string;
+      excerpt: string;
       featuredImage: {
     node: {
       sourceUrl: string;

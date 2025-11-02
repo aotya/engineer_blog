@@ -140,28 +140,29 @@ export async function GetPostsByCategory(categoryId: string): Promise<GetPostsBy
 export async function getArticleBySlug(slug: string, { variables }: Record<string, unknown> = {}): Promise<GetArticleBySlugResult | undefined> {
   try {
     const articles = await getWpData(`
-    query GetPostBySlug {
-      postBy(slug: "${slug}") {
-        title
-        content
-        date
-        featuredImage {
-          node {
-            sourceUrl
-          }
-        }
-        terms {
-          nodes {
-            ... on Category {
-              id
-              name
-              slug
-              categoryId
+      query GetPostBySlug {
+        postBy(slug: "${slug}") {
+          title
+          content
+          date
+          featuredImage {
+            node {
+              sourceUrl
             }
           }
+          terms {
+            nodes {
+              ... on Category {
+                id
+                name
+                slug
+                categoryId
+              }
+            }
+          }
+          excerpt
         }
-      }
-    }`, { variables: variables });
+      }`, { variables: variables });
 
   if (articles && articles.content) {
     const preData = preserveTags(articles.content, 'pre');
