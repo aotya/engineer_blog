@@ -9,10 +9,11 @@ import { Footer } from "../components/layout/Footer";
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.front-end-engineer-blog.com"),
   title: "Lv1 Up! Front End Engineer Blog",
   description: "コーダー・フロントエンドのLVを1UPさせる情報を発信していきます",
   alternates: {
-    canonical: "https://www.front-end-engineer-blog.com/",
+    canonical: "./",
   },
 };
 
