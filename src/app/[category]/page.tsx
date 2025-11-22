@@ -1,25 +1,52 @@
 import styles from "./category.module.scss";
 import React from 'react';
-import { notFound } from '../../../node_modules/next/navigation';
+import { notFound } from 'next/navigation';
 import { GetCategoryBySlug, GetPostsByCategory } from "../../../lib/helpers/wpApiList";
-import Card from "../../components/elements/categoryCard";
 import { PostEdge } from "../../../lib/helpers/apiType";
+import CategoryClientList from "../../components/elements/CategoryClientList";
 
 export default async function CategoryArticleList({ 
-  params 
+  params,
 }: { 
-  params: { category: string } 
+  params: { category: string }
 }) {
   
   try {
     const data = await GetCategoryBySlug(params.category);
-    // stringに変換して渡す
-    const posts = await GetPostsByCategory(data?.categoryId ? String(data.categoryId) : '');
+    // 全記事を取得（SSG用に一度に全て取得）
+    const posts = await GetPostsByCategory(
+      data?.categoryId ? String(data.categoryId) : ''
+    );
     
     if (!data) {
-      notFound(); // データが見つからない場合に404ページを表示
+      notFound();
     }
     
+    // 全記事データを整形
+    const formattedPosts: PostEdge[] = posts?.posts.edges.map((post) => {
+      const categoryNodes = post.node.categories.nodes.map(cat => ({
+        name: cat.name,
+        uri: `/categories/${cat.name.toLowerCase()}`,
+        slug: data.slug
+      }));
+      
+      return {
+        node: {
+          id: post.node.id,
+          title: post.node.title,
+          date: post.node.date,
+          content: post.node.content,
+          slug: post.node.slug,
+          categories: {
+            nodes: categoryNodes
+          },
+          featuredImage: post.node.featuredImage,
+          postId: post.node.id
+        },
+        cursor: ''
+      };
+    }) || [];
+
     return (
       <>
       <section className={styles.categoryList}>
@@ -27,42 +54,13 @@ export default async function CategoryArticleList({
           <h1>{data?.name || "不明なカテゴリー"}<br/><span>記事一覧</span></h1>
         </div>
       </section>
-      <section className={styles.cardList}>
-        <ul className={styles.articleListContainer}>
-          {posts?.posts.edges.map((post) => {
-            // 必要なカテゴリー情報を準備
-            const categoryNodes = post.node.categories.nodes.map(cat => ({
-              name: cat.name,
-              uri: `/categories/${cat.name.toLowerCase()}`, // 仮のURI
-              slug: data.slug // カテゴリースラッグを使用
-            }));
-            
-            const postEdge: PostEdge = {
-              node: {
-                id: post.node.id,
-                title: post.node.title,
-                date: post.node.date,
-                content: post.node.content,
-                slug: post.node.slug,
-                categories: {
-                  nodes: categoryNodes
-                },
-                featuredImage: post.node.featuredImage,
-                postId: post.node.id
-              },
-              cursor: ''
-            };
-            
-            return (
-              <Card 
-                categorySlug={data.slug}
-                key={post.node.id} 
-                item={postEdge} 
-              />
-            );
-          })}
-        </ul>
-      </section>
+      
+      {/* クライアントサイドでページネーション制御 */}
+      <CategoryClientList 
+        allPosts={formattedPosts} 
+        categorySlug={data.slug} 
+        itemsPerPage={9}
+      />
       </>
     );
   } catch (error) {

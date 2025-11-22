@@ -61,7 +61,7 @@ export interface CategoryBySlugResult {
     categoryId: number;
     name: string;
     slug: string;
-    
+    count: number;
   };
 }
 
@@ -86,7 +86,14 @@ export interface GetPostsByCategoryResult {
           };
         };
       };
+      cursor: string;
     }[];
+    pageInfo: {
+      hasNextPage: boolean;
+      hasPreviousPage: boolean;
+      startCursor: string | null;
+      endCursor: string | null;
+    };
   };
 }
 

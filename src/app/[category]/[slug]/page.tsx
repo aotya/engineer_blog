@@ -22,18 +22,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await Promise.resolve(params);
   const data = await getArticleBySlug(resolvedParams.slug);
   
-  if (!data) {
+  if (!data || !data.data?.postBy) {
     return {
       title: '記事が見つかりません',
       description: 'お探しの記事は見つかりませんでした。',
     };
   }
 
-
-
   // HTMLタグを除去してプレーンテキストを取得
   const description = data.data.postBy.excerpt
-    .replace(/<[^>]*>/g, '') // HTMLタグを削除
+    ? data.data.postBy.excerpt.replace(/<[^>]*>/g, '') // HTMLタグを削除
+    : '';
   
   return {
     title: data.data.postBy.title,
@@ -49,7 +48,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const BlogArticlePage = async ({ params }: Props) => {
   const resolvedParams = await Promise.resolve(params);
   const data = await getArticleBySlug(resolvedParams.slug);
-  if (!data) {
+  
+  if (!data || !data.data?.postBy) {
     notFound(); // データが見つからない場合に404ページを表示
   }
 

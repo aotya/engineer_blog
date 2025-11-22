@@ -90,8 +90,13 @@ export async function GetCategoryBySlug(slug: string) {
         categoryId
         name
         slug
+        count
       }
     }`);
+    // データ構造の確認ログ
+    if (!slugs?.data?.category) {
+      console.error("GetCategoryBySlug: Category not found or structure mismatch", slugs);
+    }
     return slugs.data.category as CategoryBySlugResult['category'];
   } catch (error) {
     console.error("Slug fetching failed:", error);
@@ -99,12 +104,17 @@ export async function GetCategoryBySlug(slug: string) {
   }
 }
 
-// カテゴリーIDから該当カテゴリ記事一覧取得
+// カテゴリーIDから該当カテゴリ記事一覧取得（全件取得：最大100件）
 export async function GetPostsByCategory(categoryId: string): Promise<GetPostsByCategoryResult | undefined> {
+  const variables: Record<string, any> = { 
+    categoryId: Number(categoryId),
+    first: 100 // 十分な数を指定して全件取得
+  };
+
   try {
     const slugs = await getWpData(`
-    query GetPostsByCategory {
-      posts(where: {categoryId: ${categoryId}}) {
+    query GetPostsByCategory($categoryId: Int!, $first: Int) {
+      posts(where: {categoryId: $categoryId}, first: $first) {
         edges {
           node {
             id
@@ -125,7 +135,7 @@ export async function GetPostsByCategory(categoryId: string): Promise<GetPostsBy
           }
         }
       }
-    }`);
+    }`, { variables });
 
     return slugs.data;
   } catch (error) {
