@@ -40,7 +40,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: data.data.postBy.title,
       description: description,
+      url: `/${resolvedParams.category}/${resolvedParams.slug}`,
+      siteName: 'Lv1 Up! Front End Engineer Blog',
+      type: 'article',
       images: data.data.postBy.featuredImage?.node?.sourceUrl ? [data.data.postBy.featuredImage.node.sourceUrl] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: data.data.postBy.title,
+      description: description,
+      images: data.data.postBy.featuredImage?.node?.sourceUrl ? [data.data.postBy.featuredImage.node.sourceUrl] : [],
+    },
+    alternates: {
+      canonical: `/${resolvedParams.category}/${resolvedParams.slug}`,
     },
   };
 }

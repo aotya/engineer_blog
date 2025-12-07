@@ -4,6 +4,34 @@ import { notFound } from 'next/navigation';
 import { GetCategoryBySlug, GetPostsByCategory } from "../../../lib/helpers/wpApiList";
 import { PostEdge } from "../../../lib/helpers/apiType";
 import CategoryClientList from "../../components/elements/CategoryClientList";
+import { Metadata } from "next";
+
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: { category: string } 
+}): Promise<Metadata> {
+  const data = await GetCategoryBySlug(params.category);
+  
+  if (!data) {
+    return {
+      title: 'カテゴリーが見つかりません',
+    };
+  }
+
+  return {
+    title: `${data.name}の記事一覧`,
+    description: `${data.name}に関する記事一覧ページです。`,
+    openGraph: {
+      title: `${data.name}の記事一覧`,
+      description: `${data.name}に関する記事一覧ページです。`,
+      url: `/${data.slug}`,
+    },
+    alternates: {
+      canonical: `/${data.slug}`,
+    },
+  };
+}
 
 export default async function CategoryArticleList({ 
   params,
