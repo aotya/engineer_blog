@@ -1,67 +1,19 @@
 import Image from "next/image";
-import React from "react";
 import styles from "./Top.module.scss"; 
 import Link from "next/link";
 import { getArticlesListByCategory, GetChildCategoriesBySlug } from "../../../lib/helpers/wpApiList";
-import { PostEdge } from "../../../lib/helpers/apiType";
 import Card from "../elements/topCard";
 
-export default function Top() {
+export default async function Top() {
+  // データを並列で取得（SSG時にビルド時に実行される）
+  const [codingData, magazineData, cordData] = await Promise.all([
+    getArticlesListByCategory({ first: 3, category: "coding" }),
+    getArticlesListByCategory({ first: 3, category: "magazine" }),
+    GetChildCategoriesBySlug("coding"),
+  ]);
 
-  const DataByCategory = async (num: number, word: string) => {
-    const data = await getArticlesListByCategory({ first: num, category: word });
-    const dataByCategoryList = data?.posts.edges;
-    return dataByCategoryList
-  };
-
-  const renderProgrammingList = async () => {
-    try {
-      const dataByCoadingList = await DataByCategory(3, "coding");
-      return (
-        <ul className={styles.articleListContainer}>
-          {dataByCoadingList?.map((item: PostEdge) => (
-            <Card key={item.node.id} item={item} />
-          ))}
-        </ul>
-      )
-    } catch {
-      return <p>エラーが発生しました</p>
-    }
-  }
-
-  const renderMagazineList = async () => {
-    try {
-      const dataByMagazineList = await DataByCategory(3, "magazine");
-      return (
-      <ul className={styles.articleListContainer}>
-        {dataByMagazineList?.map((item: PostEdge, index: number) => (
-          <Card key={item.node.id} item={item} />
-        ))}
-      </ul>
-      )
-    } catch {
-      return <p>エラーが発生しました</p>
-    }
-  }
-
-  const renderCordList = async () => {
-    const data = await GetChildCategoriesBySlug("coding");
-    return (
-      <ul className={styles.ProgrammingListContainerInner}>
-        {data?.nodes.map((item) => (
-          <li key={item.slug}>
-            <Link href={`/${item.slug}`}>
-              <div className={styles.ProgrammingListItem}>
-              <p>{item.name}</p>
-              </div>
-            </Link>
-          </li>
-        ))}
-    </ul>
-    );
-  }
-
-
+  const codingList = codingData?.posts.edges;
+  const magazineList = magazineData?.posts.edges;
 
   return (
     <>
@@ -87,10 +39,24 @@ export default function Top() {
           <p>デモが多いので、コードストックに最適です</p>
         </div>
         <div className={styles.ProgrammingListContainer}>
-          {renderCordList()}
+          <ul className={styles.ProgrammingListContainerInner}>
+            {cordData?.nodes.map((item) => (
+              <li key={item.slug}>
+                <Link href={`/${item.slug}`}>
+                  <div className={styles.ProgrammingListItem}>
+                    <p>{item.name}</p>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
         <h3 className={styles.latestArticleTitle}>最新の記事</h3>
-        {renderProgrammingList()}
+        <ul className={styles.articleListContainer}>
+          {codingList?.map((item) => (
+            <Card key={item.node.id} item={item} />
+          ))}
+        </ul>
       </div>
       <a className={styles.moreLink} href="/coding/">
         <p>もっと見る</p>
@@ -105,7 +71,11 @@ export default function Top() {
         <div className={styles.magazineContainerInnerText}>
           <p>最近のフロントエンドの動向、コーティングの役に立つツールなどの紹介</p>
         </div>
-        {renderMagazineList()}
+        <ul className={styles.articleListContainer}>
+          {magazineList?.map((item) => (
+            <Card key={item.node.id} item={item} />
+          ))}
+        </ul>
       </div>
       <a className={styles.moreLink} href="/magazine/">
         <p>もっと見る</p>

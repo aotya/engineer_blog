@@ -23,7 +23,9 @@ const Card: React.FC<CardProps> = ({ item }) => {
               <Image src={item.node.featuredImage.node.sourceUrl} alt="" width={1000} height={1000} />
             </div>
             <div className={styles.cardLinkInfo}>
-              <p className={styles.categoryName}>{item.node.categories.nodes[0].name}</p>
+              <div className={styles.cardLinkInfHead}>
+                <p className={styles.categoryName}>{item.node.categories.nodes[0].name}</p>
+              </div>
               <p className={styles.articleTitle}>{item.node.title}</p>
             </div>
           </div>

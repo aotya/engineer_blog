@@ -342,7 +342,7 @@
       gap: 5%;
       row-gap: 30px;
       
-      @media (max-width: 1000px) {
+      @media (max-width: 768px) {
         flex-direction: column;
         justify-content: center;
         align-items: center;
