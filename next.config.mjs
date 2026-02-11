@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [process.env.IMAGE_DOMAIN],
+    domains: process.env.IMAGE_DOMAIN ? [process.env.IMAGE_DOMAIN] : [],
   },
 };
 

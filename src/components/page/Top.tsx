@@ -35,7 +35,7 @@ export default function Top() {
       return (
       <ul className={styles.articleListContainer}>
         {dataByMagazineList?.map((item: PostEdge, index: number) => (
-          <Card key={item.node.id} item={item} isPickup={index === 0} />
+          <Card key={item.node.id} item={item} />
         ))}
       </ul>
       )
