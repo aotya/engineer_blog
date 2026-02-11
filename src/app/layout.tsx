@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.front-end-engineer-blog.com"),
+  icons: {
+    icon: "/favicon.png",
+  },
   title: {
     default: "Lv1 Up! Front End Engineer Blog",
     template: "%s | Lv1 Up! Front End Engineer Blog",
