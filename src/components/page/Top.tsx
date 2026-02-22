@@ -36,7 +36,6 @@ export default async function Top() {
         <h2 className={styles.h2}>Programming</h2>
         <div className={styles.ProgrammingContainerInnerText}>
           <p>プログラミング/マークアップ言語</p>
-          <p>デモが多いので、コードストックに最適です</p>
         </div>
         <div className={styles.ProgrammingListContainer}>
           <ul className={styles.ProgrammingListContainerInner}>

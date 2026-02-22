@@ -86,7 +86,7 @@
     padding: .2em .4em;
     margin: auto .2em;
     border-radius: 2px;
-    font-size: .9em;
+    font-size: 12px;
     vertical-align: .2em;
     font-weight: 700;
   }
@@ -96,6 +96,9 @@
     margin: 50px 0;
     padding: 10px 20px;
     border: solid 3px  #ff7d6e;
+    p {
+      margin: 0;
+    }
     .cautionLabel {
       position: absolute;
       display: inline-block;
@@ -116,6 +119,9 @@
     margin: 50px 0;
     padding: 10px 20px;
     border: solid 3px  #5fb3f5;
+    p {
+      margin: 0;
+    }
     .pointLabel {
       position: absolute;
       display: inline-block;
