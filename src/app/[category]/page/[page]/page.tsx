@@ -20,6 +20,14 @@ export async function generateMetadata({
     };
   }
 
+  // ページ番号が不正な場合はデフォルトのタイトルを返す
+  if (isNaN(page) || page < 1) {
+    return {
+      title: `${data.name}の記事一覧`,
+      description: `${data.name}に関する記事一覧ページです。`,
+    };
+  }
+
   return {
     title: `${data.name}の記事一覧 (${page}ページ目)`,
     description: `${data.name}に関する記事一覧ページです。${page}ページ目。`,
@@ -50,13 +58,12 @@ export default async function CategoryArticleListPage({
   try {
     const data = await GetCategoryBySlug(params.category);
     // 全記事を取得（SSG用に一度に全て取得）
-    const posts = await GetPostsByCategory(
-      data?.categoryId ? String(data.categoryId) : ''
-    );
-    
     if (!data) {
       notFound();
     }
+    const posts = await GetPostsByCategory(
+      data?.categoryId ? String(data.categoryId) : ''
+    );
     
     // 全記事データを整形
     const formattedPosts: PostEdge[] = posts?.posts.edges.map((post) => {
