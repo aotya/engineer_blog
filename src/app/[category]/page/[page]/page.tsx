@@ -1,17 +1,18 @@
-import styles from "./category.module.scss";
+import styles from "../../category.module.scss";
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { GetCategoryBySlug, GetPostsByCategory } from "../../../lib/helpers/wpApiList";
-import { PostEdge } from "../../../lib/helpers/apiType";
-import CategoryClientList from "../../components/elements/CategoryClientList";
+import { GetCategoryBySlug, GetPostsByCategory } from "../../../../../lib/helpers/wpApiList";
+import { PostEdge } from "../../../../../lib/helpers/apiType";
+import CategoryClientList from "../../../../components/elements/CategoryClientList";
 import { Metadata } from "next";
 
 export async function generateMetadata({ 
   params 
 }: { 
-  params: { category: string } 
+  params: { category: string, page: string } 
 }): Promise<Metadata> {
   const data = await GetCategoryBySlug(params.category);
+  const page = Number(params.page);
   
   if (!data) {
     return {
@@ -20,25 +21,31 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${data.name}の記事一覧`,
-    description: `${data.name}に関する記事一覧ページです。`,
+    title: `${data.name}の記事一覧 (${page}ページ目)`,
+    description: `${data.name}に関する記事一覧ページです。${page}ページ目。`,
     openGraph: {
-      title: `${data.name}の記事一覧`,
-      description: `${data.name}に関する記事一覧ページです。`,
-      url: `/${data.slug}`,
+      title: `${data.name}の記事一覧 (${page}ページ目)`,
+      description: `${data.name}に関する記事一覧ページです。${page}ページ目。`,
+      url: `/${data.slug}/page/${page}`,
     },
     alternates: {
-      canonical: `/${data.slug}`,
+      canonical: `/${data.slug}/page/${page}`,
     },
   };
 }
 
-export default async function CategoryArticleList({ 
+export default async function CategoryArticleListPage({ 
   params,
 }: { 
-  params: { category: string }
+  params: { category: string, page: string }
 }) {
-  const itemsPerPage = 9; // 1ページあたりの表示件数
+  const itemsPerPage = 9;
+  const currentPage = Number(params.page);
+
+  // ページ番号が不正な場合は404
+  if (isNaN(currentPage) || currentPage < 1) {
+    notFound();
+  }
   
   try {
     const data = await GetCategoryBySlug(params.category);
@@ -76,8 +83,19 @@ export default async function CategoryArticleList({
       };
     }) || [];
 
-    // 1ページ目に表示する記事のみを抽出
-    const displayPosts = formattedPosts.slice(0, itemsPerPage);
+    // 総ページ数を計算
+    const totalPages = Math.ceil(formattedPosts.length / itemsPerPage);
+
+    // ページ番号が範囲外の場合は404
+    // ただし、記事が0件でページ番号が1の場合は表示を許可
+    if (currentPage > totalPages && !(formattedPosts.length === 0 && currentPage === 1)) {
+      notFound();
+    }
+
+    // 表示する記事を抽出
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayPosts = formattedPosts.slice(startIndex, endIndex);
 
     return (
       <>
@@ -88,11 +106,10 @@ export default async function CategoryArticleList({
       </section>
       
       {/* ページネーション対応コンポーネント */}
-      {/* 1ページ目なので currentPage={1} を指定 */}
       <CategoryClientList 
         posts={displayPosts} 
         totalPosts={formattedPosts.length}
-        currentPage={1}
+        currentPage={currentPage}
         categorySlug={data.slug} 
         itemsPerPage={itemsPerPage}
       />
