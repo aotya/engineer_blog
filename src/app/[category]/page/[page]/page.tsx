@@ -42,12 +42,14 @@ export async function generateMetadata({
   };
 }
 
+import { CATEGORY_ITEMS_PER_PAGE } from "../../../../../lib/constants";
+
 export default async function CategoryArticleListPage({ 
   params,
 }: { 
   params: { category: string, page: string }
 }) {
-  const itemsPerPage = 9;
+  const itemsPerPage = CATEGORY_ITEMS_PER_PAGE;
   const currentPage = Number(params.page);
 
   // ページ番号が不正な場合は404

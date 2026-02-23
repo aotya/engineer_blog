@@ -33,12 +33,14 @@ export async function generateMetadata({
   };
 }
 
+import { CATEGORY_ITEMS_PER_PAGE } from "../../../lib/constants";
+
 export default async function CategoryArticleList({ 
   params,
 }: { 
   params: { category: string }
 }) {
-  const itemsPerPage = 9; // 1ページあたりの表示件数
+  const itemsPerPage = CATEGORY_ITEMS_PER_PAGE; // 1ページあたりの表示件数
   
   try {
     const data = await GetCategoryBySlug(params.category);
