@@ -65,8 +65,9 @@ const BlogArticlePage = async ({ params }: Props) => {
     notFound(); // データが見つからない場合に404ページを表示
   }
 
-  // コンテンツのハイライトと目次の生成
+  // コンテンツにハイライト追加
   const body = HighlightAutoCord(data.data.postBy.content);
+  // 目次の生成
   const toc = renderToc(data.data.postBy.content);
 
   const pankuzu = () => {

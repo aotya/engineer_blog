@@ -38,7 +38,7 @@ export const HighlightAutoCord = (body: string) => {
   });
   
   // 修正されたHTML文字列を返す
-  return data.html();  // HTMLの文字列を返す
+  return data('body').html() || '';  // HTMLの文字列を返す
 };
 
 
