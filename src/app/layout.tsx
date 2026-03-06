@@ -44,7 +44,9 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
-        <meta name="google-site-verification" content="RKrYEEIk-TwjFdCqtmn6lgokbn5FTV8Z_6CkWsfjM-s" />
+        {process.env.GOOGLE_SITE_VERIFICATION && (
+          <meta name="google-site-verification" content={process.env.GOOGLE_SITE_VERIFICATION} />
+        )}
       </head>
       <body className={inter.className}>
         <Header />
