@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../layout/Header.module.scss";
 import Link from "next/link";
 import Image from "next/image";
@@ -17,6 +17,17 @@ const HamburgerButton = ({ data }: HamburgerButtonProps) => { // propsオブジ�
 
   const [isOpen, setIsOpen] = useState(false);
 
+  
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
   const toggleMenu = ( flag: boolean ) => {
     setIsOpen(flag);
   };
