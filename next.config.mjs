@@ -1,7 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: process.env.IMAGE_DOMAIN ? [process.env.IMAGE_DOMAIN] : [],
+    dangerouslyAllowSVG: true,
+    dangerouslyAllowLocalIP: true,
+    remotePatterns: [
+      ...(process.env.IMAGE_DOMAIN
+        ? [
+            {
+              protocol: "https",
+              hostname: process.env.IMAGE_DOMAIN,
+            },
+            {
+              protocol: "http",
+              hostname: process.env.IMAGE_DOMAIN,
+            },
+          ]
+        : []),
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
+    ],
   },
 };
 

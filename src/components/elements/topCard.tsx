@@ -25,6 +25,7 @@ const Card: React.FC<CardProps> = ({ item }) => {
             <div className={styles.cardLinkInfo}>
               <div className={styles.cardLinkInfHead}>
                 <p className={styles.categoryName}>{item.node.categories.nodes[0].name}</p>
+                <p className={styles.date}>{new Date(item.node.date).toISOString().split('T')[0]}</p>
               </div>
               <p className={styles.articleTitle}>{item.node.title}</p>
             </div>

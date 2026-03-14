@@ -1,39 +1,39 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from './blog.module.scss';
 
-// 各TOCエントリの型を定義
 interface TocEntry {
   text: string;
   id: string;
 }
 
-// BlogTocコンポーネントのプロパティの型を定義
 interface BlogTocProps {
   toc: TocEntry[];
 }
-const BlogToc = ({toc}:BlogTocProps) => {
+
+const BlogToc = ({ toc }: BlogTocProps) => {
   const [activeSection, setActiveSection] = useState('toc0');
+  const activeSectionRef = useRef('toc0');
+
   useEffect(() => {
     const handleScroll = () => {
-      let currentSection = activeSection;
-      toc.forEach((section: { id: string; }) => {
+      let currentSection = 'toc0';
+      toc.forEach((section: { id: string }) => {
         const element = document.getElementById(section.id);
         if (element && window.scrollY >= element.offsetTop - 10) {
           currentSection = section.id;
-        } else if (window.scrollY == 0) {
-          currentSection = 'toc0';
         }
       });
-      setActiveSection(currentSection);
+      if (currentSection !== activeSectionRef.current) {
+        activeSectionRef.current = currentSection;
+        setActiveSection(currentSection);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
-      // クリーンアップ関数：
-      // スクロールイベントリスナーを削除するために使われます。
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [toc, activeSection]);
+  }, [toc]);
 
   return (
     <div className={`${styles.sideContentWrap}`}>

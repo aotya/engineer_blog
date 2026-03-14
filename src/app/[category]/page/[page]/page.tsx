@@ -1,18 +1,40 @@
 import styles from "../../category.module.scss";
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { GetCategoryBySlug, GetPostsByCategory } from "../../../../../lib/helpers/wpApiList";
+import { GetCategoryBySlug, GetPostsByCategory, getAllCategories } from "../../../../../lib/helpers/wpApiList";
 import { PostEdge } from "../../../../../lib/helpers/apiType";
 import CategoryClientList from "../../../../components/elements/CategoryClientList";
 import { Metadata } from "next";
+import { CATEGORY_ITEMS_PER_PAGE } from "../../../../../lib/constants";
+
+export async function generateStaticParams() {
+  const categories = await getAllCategories();
+  const params: { category: string; page: string }[] = [];
+
+  await Promise.all(
+    categories.map(async (cat) => {
+      const catData = await GetCategoryBySlug(cat.slug);
+      if (!catData?.categoryId) return;
+      const posts = await GetPostsByCategory(String(catData.categoryId));
+      const total = posts?.posts.edges.length ?? 0;
+      const totalPages = Math.ceil(total / CATEGORY_ITEMS_PER_PAGE);
+      for (let p = 2; p <= totalPages; p++) {
+        params.push({ category: cat.slug, page: String(p) });
+      }
+    })
+  );
+
+  return params;
+}
 
 export async function generateMetadata({ 
   params 
 }: { 
-  params: { category: string, page: string } 
+  params: Promise<{ category: string, page: string }> 
 }): Promise<Metadata> {
-  const data = await GetCategoryBySlug(params.category);
-  const page = Number(params.page);
+  const { category, page: pageParam } = await params;
+  const data = await GetCategoryBySlug(category);
+  const page = Number(pageParam);
   
   if (!data) {
     return {
@@ -42,29 +64,29 @@ export async function generateMetadata({
   };
 }
 
-import { CATEGORY_ITEMS_PER_PAGE } from "../../../../../lib/constants";
-
 export default async function CategoryArticleListPage({ 
   params,
 }: { 
-  params: { category: string, page: string }
+  params: Promise<{ category: string, page: string }>
 }) {
   const itemsPerPage = CATEGORY_ITEMS_PER_PAGE;
-  const currentPage = Number(params.page);
+  const { category, page: pageParam } = await params;
+  const currentPage = Number(pageParam);
 
   // ページ番号が不正な場合は404
   if (isNaN(currentPage) || currentPage < 1) {
     notFound();
   }
   
+  const data = await GetCategoryBySlug(category);
+  if (!data) {
+    notFound();
+  }
+
   try {
-    const data = await GetCategoryBySlug(params.category);
     // 全記事を取得（SSG用に一度に全て取得）
-    if (!data) {
-      notFound();
-    }
     const posts = await GetPostsByCategory(
-      data?.categoryId ? String(data.categoryId) : ''
+      data.categoryId ? String(data.categoryId) : ''
     );
     
     // 全記事データを整形

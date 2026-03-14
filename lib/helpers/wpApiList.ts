@@ -1,33 +1,40 @@
-import axios from 'axios';
+import { cache } from 'react';
 import {GetChildCategoriesBySlugResultData, GetPostsEdgesResult} from "./apiType";
 import {CategoryBySlugResult} from "./apiType";
 import {GetPostsByCategoryResult} from "./apiType";
 import {GetArticleBySlugResult} from "./apiType";
+import { TOP_CODING_ITEMS_PER_PAGE } from "../constants";
 
 export async function getWpData(query = "", { variables }: Record<string, unknown> = {}) {
   const url = process.env.GRAPHQL_ENDPOINT;
+  
+  if (!url) {
+    throw new Error('GRAPHQL_ENDPOINT is not defined');
+  }
+
   try {
-    const response = await axios.post(`${url}`, {
-      query,
-      variables,
-    },
-    {
+    const response = await fetch(url, {
+      method: 'POST',
       headers: {
         "Content-Type": "application/json",
         // Authorization: `Bearer ${refreshToken}`,
       },
-    }
-    );
+      body: JSON.stringify({
+        query,
+        variables,
+      }),
+    });
 
-    const { data } = response;
+    const data = await response.json();
+
     if (data.errors) {
       console.error(data.errors);
       throw new Error('Failed to fetch API');
     }
+    
     return data;
 
   } catch (error) {
-    // Axiosのエラーをキャッチしてログに出力
     console.error('An error occurred:', error);
     throw error;
   }
@@ -35,7 +42,7 @@ export async function getWpData(query = "", { variables }: Record<string, unknow
 
 
 // TOPページで使用：カテゴリーごとの記事一覧取得
-export async function getArticlesListByCategory({ first = 3, after = null, category = null }: { first?: number; after?: string | null; category?: string | null } = {}) {
+export const getArticlesListByCategory = cache(async function({ first = TOP_CODING_ITEMS_PER_PAGE, after = null, category = null }: { first?: number; after?: string | null; category?: string | null } = {}) {
   try {
     const articles = await getWpData(`
       query GetPostsEdges($first: Int!, $after: String, $category: String) {
@@ -78,11 +85,11 @@ export async function getArticlesListByCategory({ first = 3, after = null, categ
     console.error("Articles fetching failed:", error);
     return undefined;
   }
-}
+});
 
 
 // スラッグからカテゴリーIDを取得
-export async function GetCategoryBySlug(slug: string) {
+export const GetCategoryBySlug = cache(async function(slug: string) {
   try {
     const slugs = await getWpData(`
     query GetCategoryBySlug {
@@ -95,17 +102,18 @@ export async function GetCategoryBySlug(slug: string) {
     }`);
     // データ構造の確認ログ
     if (!slugs?.data?.category) {
-      console.error("GetCategoryBySlug: Category not found or structure mismatch", slugs);
+      // console.error("GetCategoryBySlug: Category not found or structure mismatch", slugs);
+      return undefined;
     }
     return slugs.data.category as CategoryBySlugResult['category'];
   } catch (error) {
     console.error("Slug fetching failed:", error);
     return undefined;
   }
-}
+});
 
 // カテゴリーIDから該当カテゴリ記事一覧取得（全件取得：最大100件）
-export async function GetPostsByCategory(categoryId: string): Promise<GetPostsByCategoryResult | undefined> {
+export const GetPostsByCategory = cache(async function(categoryId: string): Promise<GetPostsByCategoryResult | undefined> {
   const variables: Record<string, any> = { 
     categoryId: Number(categoryId),
     first: 100 // 十分な数を指定して全件取得
@@ -142,14 +150,14 @@ export async function GetPostsByCategory(categoryId: string): Promise<GetPostsBy
     console.error("Slug fetching failed:", error);
     return undefined;
   }
-}
+});
 
 
 
-// 記事をスラッグで取得し、サニタイズして返す関数
-export async function getArticleBySlug(slug: string, { variables }: Record<string, unknown> = {}): Promise<GetArticleBySlugResult | undefined> {
+// 記事をスラッグで取得
+export const getArticleBySlug = cache(async function(slug: string): Promise<GetArticleBySlugResult | undefined> {
   try {
-    const articles = await getWpData(`
+    const result = await getWpData(`
       query GetPostBySlug {
         postBy(slug: "${slug}") {
           title
@@ -172,49 +180,71 @@ export async function getArticleBySlug(slug: string, { variables }: Record<strin
           }
           excerpt
         }
-      }`, { variables: variables });
+      }`);
 
-  if (articles && articles.content) {
-    const preData = preserveTags(articles.content, 'pre');
-    const codeData = preserveTags(preData.content, 'code');
-    
-    let contentWithBreaks = codeData.content;
-    
-    contentWithBreaks = restoreTags(contentWithBreaks, 'code', codeData.placeholders);
-    contentWithBreaks = restoreTags(contentWithBreaks, 'pre', preData.placeholders);
-    articles.content = contentWithBreaks;
-  }
-    return articles;
+    return result.data.postBy as GetArticleBySlugResult;
   } catch (error) {
     console.error("Articles fetching failed:", error);
+    return undefined;
   }
-}
+});
 
-const preserveTags = (content: string, tagName: string) => {
-  const regex = new RegExp(`<${tagName}>([\\s\\S]*?)<\\/${tagName}>`, 'gi');
-  const placeholders: string[] = [];
-  let index = 0;
-  content = content.replace(regex, (match: string, p1: string) => {
-    placeholders.push(p1);
-    return `<${tagName}-placeholder-${index++}></${tagName}-placeholder>`;
-  });
-  return { content, placeholders };
-};
 
-const restoreTags = (content: string, tagName: string, placeholders: string[]) => {
-  placeholders.forEach((text: string, index: number) => {
-    content = content.replace(
-      new RegExp(`<${tagName}-placeholder-${index}></${tagName}-placeholder>`, 'gi'),
-      `<${tagName}>${text}</${tagName}>`
+
+// generateStaticParams 用：全カテゴリ一覧を取得
+export const getAllCategories = cache(async function(): Promise<{ slug: string }[]> {
+  try {
+    const result = await getWpData(`
+      query GetAllCategories {
+        categories(first: 100) {
+          nodes {
+            slug
+          }
+        }
+      }
+    `);
+    return result.data.categories.nodes as { slug: string }[];
+  } catch (error) {
+    console.error("getAllCategories failed:", error);
+    return [];
+  }
+});
+
+// generateStaticParams 用：全記事のカテゴリスラッグとスラッグを取得
+export const getAllPostSlugs = cache(async function(): Promise<{ category: string; slug: string }[]> {
+  try {
+    const result = await getWpData(`
+      query GetAllPostSlugs {
+        posts(first: 1000) {
+          nodes {
+            slug
+            categories {
+              nodes {
+                slug
+              }
+            }
+          }
+        }
+      }
+    `);
+    const posts = result.data.posts.nodes as {
+      slug: string;
+      categories: { nodes: { slug: string }[] };
+    }[];
+    return posts.flatMap((post) =>
+      post.categories.nodes.map((cat) => ({
+        category: cat.slug,
+        slug: post.slug,
+      }))
     );
-  });
-  return content;
-};
-
-
+  } catch (error) {
+    console.error("getAllPostSlugs failed:", error);
+    return [];
+  }
+});
 
 // スラッグから子カテゴリーを取得(TOPページで使用)
-export async function GetChildCategoriesBySlug(parentSlug: string) {
+export const GetChildCategoriesBySlug = cache(async function(parentSlug: string) {
   try {
     const slugs = await getWpData(`
       query GetChildCategoriesBySlug {
@@ -233,4 +263,4 @@ export async function GetChildCategoriesBySlug(parentSlug: string) {
     console.error("Slug fetching failed:", error);
     return undefined;
   }
-}
+});

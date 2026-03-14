@@ -1,17 +1,24 @@
 import styles from "./category.module.scss";
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { GetCategoryBySlug, GetPostsByCategory } from "../../../lib/helpers/wpApiList";
+import { GetCategoryBySlug, GetPostsByCategory, getAllCategories } from "../../../lib/helpers/wpApiList";
 import { PostEdge } from "../../../lib/helpers/apiType";
 import CategoryClientList from "../../components/elements/CategoryClientList";
 import { Metadata } from "next";
+import { CATEGORY_ITEMS_PER_PAGE } from "../../../lib/constants";
+
+export async function generateStaticParams() {
+  const categories = await getAllCategories();
+  return categories.map((cat) => ({ category: cat.slug }));
+}
 
 export async function generateMetadata({ 
   params 
 }: { 
-  params: { category: string } 
+  params: Promise<{ category: string }> 
 }): Promise<Metadata> {
-  const data = await GetCategoryBySlug(params.category);
+  const { category } = await params;
+  const data = await GetCategoryBySlug(category);
   
   if (!data) {
     return {
@@ -33,25 +40,24 @@ export async function generateMetadata({
   };
 }
 
-import { CATEGORY_ITEMS_PER_PAGE } from "../../../lib/constants";
-
 export default async function CategoryArticleList({ 
   params,
 }: { 
-  params: { category: string }
+  params: Promise<{ category: string }>
 }) {
   const itemsPerPage = CATEGORY_ITEMS_PER_PAGE; // 1ページあたりの表示件数
+  const { category } = await params;
   
+  const data = await GetCategoryBySlug(category);
+  if (!data) {
+    notFound();
+  }
+
   try {
-    const data = await GetCategoryBySlug(params.category);
     // 全記事を取得（SSG用に一度に全て取得）
     const posts = await GetPostsByCategory(
-      data?.categoryId ? String(data.categoryId) : ''
+      data.categoryId ? String(data.categoryId) : ''
     );
-    
-    if (!data) {
-      notFound();
-    }
     
     // 全記事データを整形
     const formattedPosts: PostEdge[] = posts?.posts.edges.map((post) => {

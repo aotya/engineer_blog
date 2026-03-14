@@ -99,26 +99,22 @@ export interface GetPostsByCategoryResult {
 
 // getArticleBySlugの戻り値の型定義
 export interface GetArticleBySlugResult {
-  data: {
-    postBy: {
-      title: string;
-      content: string;
-      date: string;
-      excerpt: string;
-      featuredImage: {
+  title: string;
+  content: string;
+  date: string;
+  excerpt: string;
+  featuredImage: {
     node: {
       sourceUrl: string;
     };
   };
   terms: {
     nodes: {
-          id: string;
-          name: string;
-          slug: string;
-          categoryId: number;
-        }[];
-      };
-    };
+      id: string;
+      name: string;
+      slug: string;
+      categoryId: number;
+    }[];
   };
 }
 

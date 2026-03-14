@@ -26,7 +26,7 @@ export const Footer = async () => {
             <p className={styles.footerPrograming}>Programing</p>
             <div className={styles.footerProgramingList}>
               {list && list.map((item) => (
-                <Link className={styles.footerProgramingItem} href={`/${item.slug}/`}>
+                <Link key={item.slug} className={styles.footerProgramingItem} href={`/${item.slug}/`}>
                   <p>{item.name}</p>
               </Link>
               ))}

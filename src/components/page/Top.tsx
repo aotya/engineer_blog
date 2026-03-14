@@ -3,12 +3,13 @@ import styles from "./Top.module.scss";
 import Link from "next/link";
 import { getArticlesListByCategory, GetChildCategoriesBySlug } from "../../../lib/helpers/wpApiList";
 import Card from "../elements/topCard";
+import { TOP_CODING_ITEMS_PER_PAGE, TOP_MAGAZINE_ITEMS_PER_PAGE } from "../../../lib/constants";
 
 export default async function Top() {
   // データを並列で取得（SSG時にビルド時に実行される）
   const [codingData, magazineData, cordData] = await Promise.all([
-    getArticlesListByCategory({ first: 3, category: "coding" }),
-    getArticlesListByCategory({ first: 3, category: "magazine" }),
+    getArticlesListByCategory({ first: TOP_CODING_ITEMS_PER_PAGE, category: "coding" }),
+    getArticlesListByCategory({ first: TOP_MAGAZINE_ITEMS_PER_PAGE, category: "magazine" }),
     GetChildCategoriesBySlug("coding"),
   ]);
 
@@ -57,9 +58,9 @@ export default async function Top() {
           ))}
         </ul>
       </div>
-      <a className={styles.moreLink} href="/coding/">
+      <Link className={styles.moreLink} href="/coding/">
         <p>もっと見る</p>
-      </a>
+      </Link>
     </section>
     <section className={styles.magazineContainer}>
       <div className={styles.magazineContainerInner}>
@@ -76,9 +77,9 @@ export default async function Top() {
           ))}
         </ul>
       </div>
-      <a className={styles.moreLink} href="/magazine/">
+      <Link className={styles.moreLink} href="/magazine/">
         <p>もっと見る</p>
-      </a>
+      </Link>
     </section>
     </>
   );
