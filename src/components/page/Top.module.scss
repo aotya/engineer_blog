@@ -135,16 +135,17 @@
       margin-bottom: 50px;
       border: 1px solid #fff;
       .ProgrammingListContainerInner {
-        max-width: 600px;
+        max-width: 586px;
         width: 100%;
         margin: 0 auto;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        align-items: flex-start;
+        justify-content: flex-start;
         gap: 20px;
         flex-wrap: wrap;
         @media (max-width: 768px) {
           justify-content: center;
+          max-width: 486px;
         }
       }
       .ProgrammingListItem {
@@ -167,9 +168,9 @@
           color: #fff;
         }
         @media (max-width: 768px) {
-          min-width: 80px;
-          height: 80px;
-          font-size: 14px;
+          min-width: 82px;
+          height: 82px;
+          font-size: 12px;
         }
         &:hover {
           background-color: #fff;
