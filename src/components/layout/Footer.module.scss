@@ -12,7 +12,7 @@
           width: 80px;
         }
       }
-      .footerPrograming {
+      .footerProgramming {
         font-size: 24px;
         font-weight: 700;
         line-height: 1.5;
@@ -21,7 +21,7 @@
           font-size: 20px;
         }
       }
-      .footerProgramingList {
+      .footerProgrammingList {
         display: flex;
         font-size: 16px;
         font-weight: 400;
@@ -31,7 +31,7 @@
         column-gap: 14px;
         padding: 10px;
         flex-wrap: wrap;
-        .footerProgramingItem {
+        .footerProgrammingItem {
           padding: 10px;
           &:hover {
             transition: all 0.2s ease;
