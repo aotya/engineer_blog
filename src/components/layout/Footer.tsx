@@ -23,10 +23,10 @@ export const Footer = async () => {
             <Image src="/footerLogo.svg" alt="logo" width={100} height={90} />
           </Link>
           <div className={styles.footerContent}>
-            <p className={styles.footerPrograming}>Programing</p>
-            <div className={styles.footerProgramingList}>
+            <p className={styles.footerProgramming}>Programming</p>
+            <div className={styles.footerProgrammingList}>
               {list && list.map((item) => (
-                <Link key={item.slug} className={styles.footerProgramingItem} href={`/${item.slug}/`}>
+                <Link key={item.slug} className={styles.footerProgrammingItem} href={`/${item.slug}/`}>
                   <p>{item.name}</p>
               </Link>
               ))}
@@ -41,7 +41,7 @@ export const Footer = async () => {
             </div>
           </div>
         </div>
-        <p className={styles.footerCopyright}>© 2025 Lv1 Start ! Front End Engineer Blog</p>
+        <p className={styles.footerCopyright}>© 2026 Lv1 Start ! Front End Engineer Blog</p>
       </div>
     </footer>
   );
