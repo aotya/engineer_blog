@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "./Top.module.scss"; 
 import Link from "next/link";
 import { getArticlesListByCategory, GetChildCategoriesBySlug } from "../../../lib/helpers/wpApiList";
-import Card from "../elements/topCard";
+import Card from "../elements/TopCard";
 import { TOP_CODING_ITEMS_PER_PAGE, TOP_MAGAZINE_ITEMS_PER_PAGE } from "../../../lib/constants";
 
 export default async function Top() {
@@ -29,21 +29,21 @@ export default async function Top() {
         コーダー・フロントエンドのLVを１UPさせる情報を発信していきます
       </p>
     </section>
-    <section className={styles.ProgrammingContainer}>
-      <div className={styles.ProgrammingContainerInner}>
+    <section className={styles.programmingContainer}>
+      <div className={styles.programmingContainerInner}>
         <div className={styles.midashiLogo}>
           <Image src="/cord.svg" alt="cord" width={50} height={50} />
         </div>
         <h2 className={styles.h2}>Programming</h2>
-        <div className={styles.ProgrammingContainerInnerText}>
+        <div className={styles.programmingContainerInnerText}>
           <p>プログラミング/マークアップ言語</p>
         </div>
-        <div className={styles.ProgrammingListContainer}>
-          <ul className={styles.ProgrammingListContainerInner}>
+        <div className={styles.programmingListContainer}>
+          <ul className={styles.programmingListContainerInner}>
             {cordData?.nodes.map((item) => (
               <li key={item.slug}>
                 <Link href={`/${item.slug}`}>
-                  <div className={styles.ProgrammingListItem}>
+                  <div className={styles.programmingListItem}>
                     <p>{item.name}</p>
                   </div>
                 </Link>

@@ -9,7 +9,7 @@ import styles from './blog.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { categoriesIdList } from '../../../../categoriesIdList';
-import Card from '@/components/elements/relatedCard';
+import Card from '@/components/elements/RelatedCard';
 type Props = {
   params: Promise<{
     category: string;

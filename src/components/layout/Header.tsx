@@ -1,5 +1,5 @@
 import styles from "./Header.module.scss"; //
-import HamburgerButton from "../elements/hamburgerButton";
+import HamburgerButton from "../elements/HamburgerButton";
 import { GetChildCategoriesBySlug } from "../../../lib/helpers/wpApiList";
 // Categoryデータ用の型を定義（必要に応じて調整）
 type CategoryChildren = {

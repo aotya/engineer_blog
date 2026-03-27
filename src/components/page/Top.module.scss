@@ -98,18 +98,18 @@
 }
 
 // プログラミング
-.ProgrammingContainer {
+.programmingContainer {
   padding: 50px 20px;
   width: 100%;
   overflow: hidden;
   background: #fff;
   position: relative;
    // background-image: linear-gradient(to left, #ffffff, #e5eafa, #bdd9f4, #8acae8, #47bcd3);
-  .ProgrammingContainerInner {
+  .programmingContainerInner {
     max-width: 1000px;
     margin: 0 auto;
 
-    .ProgrammingContainerInnerText {
+    .programmingContainerInnerText {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -126,7 +126,7 @@
         }
       }
     }
-    .ProgrammingListContainer {
+    .programmingListContainer {
       display: flex;
       align-items: center;
       border-radius: 24px;
@@ -134,7 +134,7 @@
       margin-top: 30px;
       margin-bottom: 50px;
       border: 1px solid #fff;
-      .ProgrammingListContainerInner {
+      .programmingListContainerInner {
         max-width: 586px;
         width: 100%;
         margin: 0 auto;
@@ -148,7 +148,7 @@
           max-width: 486px;
         }
       }
-      .ProgrammingListItem {
+      .programmingListItem {
         background-color: #47BCD3;
         display: flex;
         align-items: center;
