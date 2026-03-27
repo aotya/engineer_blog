@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { PostEdge } from "../../../lib/helpers/apiType";
-import Card from "../../components/elements/categoryCard";
+import Card from "./CategoryCard";
 import styles from "../../app/[category]/category.module.scss";
 
 interface CategoryClientListProps {
