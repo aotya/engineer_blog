@@ -16,13 +16,11 @@ const Card: React.FC<CardProps> = ({ item }) => {
     return html.replace(/<\/?a(?:\s[^>]*)?>/gi, "");
   }, [item.node.content]);
 
-  const childCategory = React.useMemo(() =>
-    getChildCategory(item.node.categories.nodes)
-  , [item.node.categories.nodes]);
+  const childCategory = getChildCategory(item.node.categories.nodes);
 
   return (
     <li key={item.node.id} className={styles.articleListItem}>
-      <Link href={`${childCategory.slug}/${item.node.slug}`} className={styles.cardLink}>
+      <Link href={`${childCategory?.slug}/${item.node.slug}`} className={styles.cardLink}>
         <div>
           <div className={styles.cardLinkInner}>
             <div className={styles.cardLinkImage}>
@@ -30,7 +28,7 @@ const Card: React.FC<CardProps> = ({ item }) => {
             </div>
             <div className={styles.cardLinkInfo}>
               <div className={styles.cardLinkInfHead}>
-                <p className={styles.categoryName}>{childCategory.name}</p>
+                <p className={styles.categoryName}>{childCategory?.name}</p>
                 <p className={styles.date}>{new Date(item.node.date).toISOString().split('T')[0]}</p>
               </div>
               <p className={styles.articleTitle}>{item.node.title}</p>

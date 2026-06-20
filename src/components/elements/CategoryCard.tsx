@@ -23,7 +23,7 @@ const Card: React.FC<CardProps> = ({ item, isPickup = false, categorySlug }) => 
             </div>
             <div className={styles.cardLinkInfo}>
               <div className={isPickup ? styles.cardLinkInfHeadPickup : styles.cardLinkInfHead}>
-                <p className={isPickup ? styles.categoryNamePickup : styles.categoryName}>{childCategory.name}</p>
+                <p className={isPickup ? styles.categoryNamePickup : styles.categoryName}>{childCategory?.name}</p>
                 <p className={isPickup ? styles.datePickup : styles.date}>{new Date(item.node.date).toISOString().split('T')[0]}</p>
               </div>
               <p className={isPickup ? styles.articleTitlePickup : styles.articleTitle}>{item.node.title}</p>
