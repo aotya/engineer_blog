@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import styles from "../../app/[category]/[slug]/blog.module.scss";
 import { PostEdge } from "../../../lib/helpers/apiType";
+import { getChildCategory } from "../../../lib/helpers/categoryUtils";
 
 interface CardProps {
   item: PostEdge;
@@ -11,6 +12,7 @@ interface CardProps {
 }
 
 const relatedCard: React.FC<CardProps> = ({ item, isPickup = false, categorySlug }) => {
+  const childCategory = getChildCategory(item.node.categories.nodes);
   return (
     <li key={item.node.id} className={styles.articleListItem}>
       <Link href={`/${categorySlug}/${item.node.slug}`} className={styles.cardLink}>
@@ -21,7 +23,7 @@ const relatedCard: React.FC<CardProps> = ({ item, isPickup = false, categorySlug
             </div>
             <div className={styles.cardLinkInfo}>
               <div className={isPickup ? styles.cardLinkInfHeadPickup : styles.cardLinkInfHead}>
-                <p className={isPickup ? styles.categoryNamePickup : styles.categoryName}>{item.node.categories.nodes[0].name}</p>
+                <p className={isPickup ? styles.categoryNamePickup : styles.categoryName}>{childCategory?.name}</p>
                 <p className={isPickup ? styles.datePickup : styles.date}>{new Date(item.node.date).toISOString().split('T')[0]}</p>
               </div>
               <p className={isPickup ? styles.articleTitlePickup : styles.articleTitle}>{item.node.title}</p>

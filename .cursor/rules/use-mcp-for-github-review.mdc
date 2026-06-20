@@ -1,0 +1,26 @@
+---
+description: GitHub PRのレビュー依頼時にMCPを使って自動的にレビューを投稿する
+alwaysApply: true
+---
+
+# GitHub PRレビューはMCPを使う
+
+GitHub PRのURLが共有されてレビューを依頼されたら、必ず以下の手順でMCPを使うこと。
+
+## 手順
+
+1. `user-github-review` の `get_pr_data` でPR情報と差分を取得する
+2. 取得した差分をもとにレビュー内容を作成する
+3. `user-github-review` の `submit_review` でGitHubへ直接投稿する
+
+## レビュー判定の基準
+
+- バグ・クラッシュの可能性がある → `REQUEST_CHANGES`
+- 改善提案のみ（動作には問題なし）→ `COMMENT`
+- 問題なし → `APPROVE`
+
+## コメントのルール
+
+- 修正提案は `suggestion` ブロックで記述する
+- 行単位で `path` と `line` を指定してコメントを付ける
+- 総評（`summary`）には良い点・改善点・判定理由を含める

@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import styles from "../page/Top.module.scss";
 import { PostEdge } from "../../../lib/helpers/apiType";
+import { getChildCategory } from "../../../lib/helpers/categoryUtils";
 
 interface CardProps {
   item: PostEdge;
@@ -14,9 +15,12 @@ const Card: React.FC<CardProps> = ({ item }) => {
     // Unwrap anchor tags to avoid nested <a> inside outer Link
     return html.replace(/<\/?a(?:\s[^>]*)?>/gi, "");
   }, [item.node.content]);
+
+  const childCategory = getChildCategory(item.node.categories.nodes);
+
   return (
     <li key={item.node.id} className={styles.articleListItem}>
-      <Link href={`${item.node.categories.nodes[0].slug}/${item.node.slug}`} className={styles.cardLink}>
+      <Link href={`${childCategory?.slug}/${item.node.slug}`} className={styles.cardLink}>
         <div>
           <div className={styles.cardLinkInner}>
             <div className={styles.cardLinkImage}>
@@ -24,7 +28,7 @@ const Card: React.FC<CardProps> = ({ item }) => {
             </div>
             <div className={styles.cardLinkInfo}>
               <div className={styles.cardLinkInfHead}>
-                <p className={styles.categoryName}>{item.node.categories.nodes[0].name}</p>
+                <p className={styles.categoryName}>{childCategory?.name}</p>
                 <p className={styles.date}>{new Date(item.node.date).toISOString().split('T')[0]}</p>
               </div>
               <p className={styles.articleTitle}>{item.node.title}</p>
