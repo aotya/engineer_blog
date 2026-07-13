@@ -11,6 +11,7 @@ markerやcordを不必要に使わないでください。重要な箇所のみ�
 - 見出し（H2,H3,H4）には **いかなるclassも適用しない**（marker・code・singleCode すべて禁止）
 - テーブルのセル（th・td）には **いかなるclassも適用しない**（marker・code・singleCode すべて禁止）
 - 二つのstyleを適用しない
+- 文章になっているものを無理やりリスト化させない。箇条書きのみリスト化させること。
 
 ### 使用禁止の例
 - <span class="marker"><span class="code">array</span></span>
