@@ -31,7 +31,6 @@ const buildItem = ({ title, categoryName, date, imageUrl }: TopCardArgs): PostEd
 
 const meta: Meta<TopCardArgs> = {
   title: 'Elements/TopCard',
-  component: TopCard,
   parameters: {
     layout: 'padded',
   },
