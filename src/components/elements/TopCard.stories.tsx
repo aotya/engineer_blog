@@ -36,9 +36,13 @@ const meta: Meta<TopCardArgs> = {
   },
   decorators: [
     (Story) => (
-      <ul className={topStyles.articleListContainer} style={{ maxWidth: 360 }}>
-        <Story />
-      </ul>
+      <section className={topStyles.programmingContainer}>
+        <div className={topStyles.programmingContainerInner}>
+          <ul className={topStyles.articleListContainer}>
+            <Story />
+          </ul>
+        </div>
+      </section>
     ),
   ],
   argTypes: {
