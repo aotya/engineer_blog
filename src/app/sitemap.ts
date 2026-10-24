@@ -32,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .filter((p) => Boolean(p.category))
       .map((p) => ({
         url: `${siteUrl}/${p.category}/${p.slug}`,
-        lastModified: p.date ? new Date(p.date) : now,
+        lastModified: p.modified || p.date ? new Date(p.modified || p.date) : now,
         changeFrequency: 'monthly',
         priority: 0.8,
       }));

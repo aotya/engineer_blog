@@ -33,17 +33,20 @@ interface Post {
   content: string;
 }
 
+// 本番ビルド時のみキャッシュする（next dev では記事の編集をすぐ反映させるため毎回読み込む）
+const USE_CACHE = process.env.NODE_ENV === 'production';
 let categoriesCache: Category[] | undefined;
 let postsCache: Post[] | undefined;
 
 function loadCategories(): Category[] {
-  categoriesCache ??= JSON.parse(fs.readFileSync(path.join(CONTENT_DIR, 'categories.json'), 'utf8')) as Category[];
+  if (USE_CACHE && categoriesCache) return categoriesCache;
+  categoriesCache = JSON.parse(fs.readFileSync(path.join(CONTENT_DIR, 'categories.json'), 'utf8')) as Category[];
   return categoriesCache;
 }
 
 // 公開記事を新しい順で取得（frontmatterに draft: true がある記事は除外）
 function loadPosts(): Post[] {
-  if (postsCache) return postsCache;
+  if (USE_CACHE && postsCache) return postsCache;
   const dir = path.join(CONTENT_DIR, 'posts');
   postsCache = fs
     .readdirSync(dir)
@@ -68,9 +71,13 @@ function categoryUri(slug: string): string {
 
 // 指定カテゴリと、その子孫カテゴリのslug一覧（WordPressのカテゴリ絞り込みと同様に子カテゴリの記事も含める）
 function descendantSlugs(slug: string): Set<string> {
-  const result = new Set([slug]);
-  for (const c of loadCategories()) {
-    if (c.parent && result.has(c.parent)) result.add(c.slug);
+  // categories.json の並び順に依存しないよう、親から順に子をたどる
+  const categories = loadCategories();
+  const result = new Set<string>();
+  const queue = [slug];
+  for (let current = queue.shift(); current; current = queue.shift()) {
+    result.add(current);
+    queue.push(...categories.filter((c) => c.parent === current && !result.has(c.slug)).map((c) => c.slug));
   }
   return result;
 }
@@ -90,7 +97,9 @@ export async function getArticlesListByCategory({
   category = null,
 }: { first?: number; after?: string | null; category?: string | null } = {}): Promise<GetPostsEdgesResult | undefined> {
   const posts = category ? postsInCategory(category) : loadPosts();
-  const start = after ? posts.findIndex((p) => p.slug === after) + 1 : 0;
+  // 存在しないカーソルが渡された場合は、先頭に戻さず空を返す
+  const afterIndex = after ? posts.findIndex((p) => p.slug === after) : -1;
+  const start = after ? (afterIndex === -1 ? posts.length : afterIndex + 1) : 0;
   const page = posts.slice(start, start + first);
   return {
     posts: {
