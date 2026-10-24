@@ -1,0 +1,92 @@
+[
+  {
+    "id": 14,
+    "slug": "ai",
+    "name": "AI",
+    "parent": "coding"
+  },
+  {
+    "id": 4,
+    "slug": "html_css",
+    "name": "HTML/CSS",
+    "parent": "coding"
+  },
+  {
+    "id": 5,
+    "slug": "js",
+    "name": "JavaScript",
+    "parent": "coding"
+  },
+  {
+    "id": 10,
+    "slug": "magazine",
+    "name": "magazine",
+    "parent": null
+  },
+  {
+    "id": 11,
+    "slug": "nextjs",
+    "name": "Next.js",
+    "parent": "coding"
+  },
+  {
+    "id": 7,
+    "slug": "playwright",
+    "name": "Playwright",
+    "parent": "test-tool"
+  },
+  {
+    "id": 13,
+    "slug": "react",
+    "name": "React",
+    "parent": "coding"
+  },
+  {
+    "id": 1,
+    "slug": "seo",
+    "name": "seo",
+    "parent": "magazine"
+  },
+  {
+    "id": 15,
+    "slug": "typescript",
+    "name": "TypeScript",
+    "parent": "coding"
+  },
+  {
+    "id": 12,
+    "slug": "wordpress-magazine",
+    "name": "wordpress",
+    "parent": "magazine"
+  },
+  {
+    "id": 8,
+    "slug": "wordpress",
+    "name": "WordPress",
+    "parent": null
+  },
+  {
+    "id": 3,
+    "slug": "coding",
+    "name": "コーディング",
+    "parent": null
+  },
+  {
+    "id": 6,
+    "slug": "test-tool",
+    "name": "テストツール",
+    "parent": null
+  },
+  {
+    "id": 9,
+    "slug": "plugin",
+    "name": "プラグイン（WordPress）",
+    "parent": "wordpress"
+  },
+  {
+    "id": 16,
+    "slug": "test",
+    "name": "自動テスト",
+    "parent": "coding"
+  }
+]

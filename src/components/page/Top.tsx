@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "./Top.module.scss"; 
 import Link from "next/link";
-import { getArticlesListByCategory, GetChildCategoriesBySlug } from "../../../lib/helpers/wpApiList";
+import { getArticlesListByCategory, GetChildCategoriesBySlug } from "../../../lib/helpers/contentApi";
 import Card from "../elements/TopCard";
 import { TOP_CODING_ITEMS_PER_PAGE, TOP_MAGAZINE_ITEMS_PER_PAGE } from "../../../lib/constants";
 
