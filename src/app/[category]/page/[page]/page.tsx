@@ -1,7 +1,7 @@
 import styles from "../../category.module.scss";
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { GetCategoryBySlug, GetPostsByCategory, getAllCategories } from "../../../../../lib/helpers/wpApiList";
+import { GetCategoryBySlug, GetPostsByCategory, getAllCategories } from "../../../../../lib/helpers/contentApi";
 import { PostEdge } from "../../../../../lib/helpers/apiType";
 import CategoryClientList from "../../../../components/elements/CategoryClientList";
 import { Metadata } from "next";

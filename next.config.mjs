@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // 記事のMarkdownを実行時にも読めるようにする
+  outputFileTracingIncludes: {
+    '/**': ['./content/**/*'],
+  },
   images: {
     dangerouslyAllowSVG: true,
     dangerouslyAllowLocalIP: true,

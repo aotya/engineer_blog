@@ -14,11 +14,18 @@
   "dependencies": {
     "axios": "^1.8.2",
     "cheerio": "^1.0.0",
+    "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
     "next": "^16.1.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "sass": "^1.85.1"
+    "rehype-raw": "^7.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "sass": "^1.85.1",
+    "unified": "^11.0.5"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
@@ -39,6 +46,8 @@
     "eslint-plugin-storybook": "^10.5.0",
     "storybook": "^10.5.0",
     "tailwindcss": "^4",
+    "turndown": "^7.2.4",
+    "turndown-plugin-gfm": "^1.0.2",
     "typescript": "^5",
     "vite": "^8.1.4"
   }

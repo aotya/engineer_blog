@@ -41,3 +41,5 @@ next-env.d.ts
 blog_md/
 *storybook.log
 storybook-static
+blogs/
+wp-backup/

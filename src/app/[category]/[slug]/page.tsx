@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { getArticleBySlug, getArticlesListByCategory, getAllPostSlugs } from '../../../../lib/helpers/wpApiList';
+import { getArticleBySlug, getArticlesListByCategory, getAllPostSlugs } from '../../../../lib/helpers/contentApi';
 import { Metadata } from 'next';
 import { HighlightAutoCord, renderToc } from '../../../../lib/helpers/pullOutTags';
 import 'highlight.js/styles/hybrid.css';
